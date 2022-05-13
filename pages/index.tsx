@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Box from '../components/_primitives/Box'
 import * as Button from '../components/_primitives/Button'
 import { css, theme, darkTheme } from '../stitches.config'
+import { CaretDown, User } from 'phosphor-react'
 
 const containterStyles = css({
   display: "flex",
@@ -10,14 +11,14 @@ const containterStyles = css({
   justifyContent: 'center',
   width: "100vw",
   height: "100vh",
-  backgroundColor: theme.colors.slate1 
+  backgroundColor: theme.colors.slate1,
+  fontFamily: theme.fonts.serif
 })
 
-const darkMode = true
+const darkMode = false
 
-/*
+/* PRESENTATION
 
-Presentation
 - Research: Our repo, MUI docs, figma
 - Basic API: afforadance, size, color
 - Support for Dark Mode
@@ -28,9 +29,20 @@ Presentation
 
 */
 
+/* API
+
+Root -> affordance | inline | size | layout | color
+Icon -> shrink | dim
+Value -> shrink | dim
+Content -> ~
+Label -> TBD
+
+*/
+
 const Home: NextPage = () => {
 
   const isUser = false
+  const isError = true
 
   return (
     <div className={ darkMode ? darkTheme : '' }>
@@ -40,12 +52,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={containterStyles()}>
-        <Box css={{color: theme.colors.slate9, fontSize: 100 }} as={"p"}>I agree to the <Button.Root inline affordance={"tertiary"}>terms and conditions</Button.Root></Box>
-        <Button.Root affordance={"tertiary"} color={"purple"} size={"lg"}>
+        <Button.Root css={{ width: 170 }} layout={"spaceBetween"} color={ isError ? "red" : "slate"} affordance={"primary"}>
+          <Button.Icon><User weight='bold'/></Button.Icon>
           <Button.Content>
-            <Button.Icon/>
-            <Button.Value>Test</Button.Value>
+            <Button.Value>People</Button.Value>
+            <Button.Value dim>12</Button.Value>
           </Button.Content>
+          <Button.Icon dim shrink><CaretDown weight='bold'/></Button.Icon>
         </Button.Root>
       </Box>
         

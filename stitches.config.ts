@@ -75,7 +75,8 @@ preflight()
 export const { theme, styled, getCssText, css } = createStitches({
   theme: {
     fonts: {
-      sans: 'Inter, sans-serif, system-ui',
+      serif: "'Poppins', sans-serif",
+      mono: "'Space Mono', monospace"
     },
     colors: {
       ...tomato,

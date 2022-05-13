@@ -1,10 +1,16 @@
-/*
+/* TODOS -------------------
 
-Open TODOs
 [] Create a seperate Text component and test wrapping behavior around Buttons
    This should make uderlines of tertery thicker on bigger sizes by making the 
    inline prop for button inherit those stylings and the Text comp have these instead
    targeting data-magical-button-root
+
+   [] Figure out if passing an alt theme to control auto-responsive is better
+      than locking it in to text comp, this could also offer the ability for turning it off
+
+      [] Figure out the base set of tokens and if to use size for creating things like
+         button height this way this too can be auto responsive
+
 
 [] Add static type checking for button children. If you try to place Button.Content
    outside of Button.Root then it should throw a warning.
@@ -18,6 +24,12 @@ Open TODOs
 [] Figure out how to export the Types interface for each component so that you can
    configure a button externally then spread the Props. 
 
+[] Figure out how to host a compiled version of the Comp on a CDN and URL
+   import it into Framer
+
+[] Figure out how to assign a change in padding rules when theres only a icon and nothing else
+   maybe a way to do this is by adding a HTML attr that if Button.Value is exist it sets to true
+   and the would override the default of no padding and then add only when theres a value? 
 */
 
 
@@ -38,9 +50,9 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
 // Here we build the headless version of every component 
 const BaseRoot = buildComponentWithDataType("Root", "button");
 const BaseContent = buildComponentWithDataType("Content", "div");
-const BaseValue = buildComponentWithDataType("Icon", "p");
-const BaseIcon = buildComponentWithDataType("Value", "div");
-const BaseLabel = buildComponentWithDataType("Value", "div"); 
+const BaseValue = buildComponentWithDataType("Value", "p");
+const BaseIcon = buildComponentWithDataType("Icon", "div");
+const BaseLabel = buildComponentWithDataType("Label", "div"); 
 // Possibly move this to seperete Comp and retain styles targeting it using data-*
 // if placed within a button?
 
@@ -61,16 +73,32 @@ const StyledRoot = styled(BaseRoot, {
     '&::after': {
         boxSizing: 'border-box',
     },
-    // padding: 12,
     cursor: "pointer",
     lineHeight: 1,
+    display: "flex",
+    
     
     '&:focus': {
         outline: "none",
         boxShadow: 'inset 0 0 0 1px $$currentColor8, 0 0 0 1px $$currentColor8',
     },
 
+    '& [data-magical-button-content]': {
+      display: "flex",
+      width: "auto", 
+      gap: 6, // this might need to change based on size
+      alignItems: "center"
+    },
+
     variants: {
+        layout: {
+            spaceBetween: {
+                justifyContent: "space-between"
+            },
+            center: {
+                justifyContent: "center"
+            },
+        },
         color: {
             slate: {
                 $$currentColor1: theme.colors.slate1,
@@ -212,6 +240,91 @@ const StyledRoot = styled(BaseRoot, {
                 $$currentColor11: theme.colors.blue11,
                 $$currentColor12: theme.colors.blue12,
             },
+            cyan: {
+                $$currentColor1: theme.colors.cyan1,
+                $$currentColor2: theme.colors.cyan2,
+                $$currentColor3: theme.colors.cyan3,
+                $$currentColor4: theme.colors.cyan4,
+                $$currentColor5: theme.colors.cyan5,
+                $$currentColor6: theme.colors.cyan6,
+                $$currentColor7: theme.colors.cyan7,
+                $$currentColor8: theme.colors.cyan8,
+                $$currentColor9: theme.colors.cyan9,
+                $$currentColor10: theme.colors.cyan10,
+                $$currentColor11: theme.colors.cyan11,
+                $$currentColor12: theme.colors.cyan12,
+            },
+            teal: {
+                $$currentColor1: theme.colors.teal1,
+                $$currentColor2: theme.colors.teal2,
+                $$currentColor3: theme.colors.teal3,
+                $$currentColor4: theme.colors.teal4,
+                $$currentColor5: theme.colors.teal5,
+                $$currentColor6: theme.colors.teal6,
+                $$currentColor7: theme.colors.teal7,
+                $$currentColor8: theme.colors.teal8,
+                $$currentColor9: theme.colors.teal9,
+                $$currentColor10: theme.colors.teal10,
+                $$currentColor11: theme.colors.teal11,
+                $$currentColor12: theme.colors.teal12,
+            },
+            green: {
+                $$currentColor1: theme.colors.green1,
+                $$currentColor2: theme.colors.green2,
+                $$currentColor3: theme.colors.green3,
+                $$currentColor4: theme.colors.green4,
+                $$currentColor5: theme.colors.green5,
+                $$currentColor6: theme.colors.green6,
+                $$currentColor7: theme.colors.green7,
+                $$currentColor8: theme.colors.green8,
+                $$currentColor9: theme.colors.green9,
+                $$currentColor10: theme.colors.green10,
+                $$currentColor11: theme.colors.green11,
+                $$currentColor12: theme.colors.green12,
+            },
+            grass: {
+                $$currentColor1: theme.colors.grass1,
+                $$currentColor2: theme.colors.grass2,
+                $$currentColor3: theme.colors.grass3,
+                $$currentColor4: theme.colors.grass4,
+                $$currentColor5: theme.colors.grass5,
+                $$currentColor6: theme.colors.grass6,
+                $$currentColor7: theme.colors.grass7,
+                $$currentColor8: theme.colors.grass8,
+                $$currentColor9: theme.colors.grass9,
+                $$currentColor10: theme.colors.grass10,
+                $$currentColor11: theme.colors.grass11,
+                $$currentColor12: theme.colors.grass12,
+            },
+            orange: {
+                $$currentColor1: theme.colors.orange1,
+                $$currentColor2: theme.colors.orange2,
+                $$currentColor3: theme.colors.orange3,
+                $$currentColor4: theme.colors.orange4,
+                $$currentColor5: theme.colors.orange5,
+                $$currentColor6: theme.colors.orange6,
+                $$currentColor7: theme.colors.orange7,
+                $$currentColor8: theme.colors.orange8,
+                $$currentColor9: theme.colors.orange9,
+                $$currentColor10: theme.colors.orange10,
+                $$currentColor11: theme.colors.orange11,
+                $$currentColor12: theme.colors.orange12,
+            },
+            brown: {
+                $$currentColor1: theme.colors.brown1,
+                $$currentColor2: theme.colors.brown2,
+                $$currentColor3: theme.colors.brown3,
+                $$currentColor4: theme.colors.brown4,
+                $$currentColor5: theme.colors.brown5,
+                $$currentColor6: theme.colors.brown6,
+                $$currentColor7: theme.colors.brown7,
+                $$currentColor8: theme.colors.brown8,
+                $$currentColor9: theme.colors.brown9,
+                $$currentColor10: theme.colors.brown10,
+                $$currentColor11: theme.colors.brown11,
+                $$currentColor12: theme.colors.brown12,
+            },
+
         },
         size: {
             // probably could remove making the padding a var
@@ -256,11 +369,10 @@ const StyledRoot = styled(BaseRoot, {
             true: {
                 px: "4px",
                 py: "2px",
-                height: "auto",
+                height: "auto", // parent should define buttons height
                 display: "inline-flex",
                 userSelect: 'unset',
-                // TODO: remove font sizing when inline is set to true so that
-                // way it inherits from its wrapping dom element!
+                fontSize: "inherit" // parent should define text size
             }
         }
     },
@@ -298,7 +410,6 @@ const StyledRoot = styled(BaseRoot, {
                 px: "0px",
                 py: "0px",
                 height: "auto",
-                fontSize: "inherit"
             }
         }
     ],
@@ -306,13 +417,50 @@ const StyledRoot = styled(BaseRoot, {
     defaultVariants: {
         color: "slate",
         size: "md",
-        affordance: 'primary'
+        affordance: 'primary',
+        layout: "center"
     }
 })
 
 const StyledContent = styled(BaseContent, {})
-const StyledIcon = styled(BaseIcon, {})
-const StyledValue = styled(BaseValue, {})
+const StyledIcon = styled(BaseIcon, {
+    // maybe change this to set default to 1.2 and make Boolean called shrink
+    '& svg': {
+        width: "1.2em",
+        height: "1.2em",
+    },
+    
+    variants: {
+        shrink: {
+            true: {
+                '& svg': {
+                    width: "0.8em",
+                    height: "0.8em",
+                }
+            },
+        },
+        dim: {
+            true: {
+                '& svg': {
+                    color: "$$currentColor8",
+                }
+            },
+        },
+    },
+    defaultVariants: {
+        // size: "default"
+    }
+})
+const StyledValue = styled(BaseValue, {
+    variants: {
+        shrink: {
+            true: { fontSize: "0.8em" }
+        },
+        dim: {
+            true: { color: "$$currentColor8" }
+        }
+    }
+})
 const StyledLabel = styled(BaseLabel, {})
 
 // EXPORTS ---------------------------------------------------------------------------
