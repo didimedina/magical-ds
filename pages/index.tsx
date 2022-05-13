@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Box from '../components/_primitives/Box'
-import Button from '../components/_primitives/Button'
+import * as Button from '../components/_primitives/Button'
 import { css, theme, darkTheme } from '../stitches.config'
 
 const containterStyles = css({
@@ -40,7 +40,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={containterStyles()}>
-        <Box as={"p"} css={{ color: theme.colors.slate10 }}>By continuing you are agreeing to the <Button inline affordance={"tertiary"} color={"pink"}>terms and condintions</Button></Box>
+        <Box css={{color: theme.colors.slate9, fontSize: 100 }} as={"p"}>I agree to the <Button.Root inline affordance={"tertiary"}>terms and conditions</Button.Root></Box>
+        <Button.Root affordance={"tertiary"} color={"purple"} size={"lg"}>
+          <Button.Content>
+            <Button.Icon/>
+            <Button.Value>Test</Button.Value>
+          </Button.Content>
+        </Button.Root>
       </Box>
         
     </div>

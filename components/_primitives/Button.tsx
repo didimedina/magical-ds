@@ -1,6 +1,55 @@
-import { styled, theme } from '../../stitches.config'
+/*
 
-const StyledButton = styled("button", {
+Open TODOs
+[] Create a seperate Text component and test wrapping behavior around Buttons
+   This should make uderlines of tertery thicker on bigger sizes by making the 
+   inline prop for button inherit those stylings and the Text comp have these instead
+   targeting data-magical-button-root
+
+[] Add static type checking for button children. If you try to place Button.Content
+   outside of Button.Root then it should throw a warning.
+
+[] If you wrap a Text around a button and button doesnt have a color set can the 
+   color from Text pass through to Button? 
+
+[] Figure out a way for Button to be imported and used as <Button/> 
+   istead of <Button.Root/> in situations where you don't need children
+
+[] Figure out how to export the Types interface for each component so that you can
+   configure a button externally then spread the Props. 
+
+*/
+
+
+import { styled, theme } from '../../stitches.config';
+
+// HEADLESS ---------------------------------------------------------------------------
+
+// Factory function that produces headless components with the right HTML data-* attribute
+type ComponentDataTypes = "Root" | "Content" | "Icon" | "Value" | "Label"
+
+function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
+    const Tag = elementTag
+    const Comp = (props: any) => <Tag {...{[`data-magical-button-${dataType.toLowerCase()}`]: "", ...props}} />;        
+    Comp.displayName = `${dataType}`;
+    return Comp;
+}
+
+// Here we build the headless version of every component 
+const BaseRoot = buildComponentWithDataType("Root", "button");
+const BaseContent = buildComponentWithDataType("Content", "div");
+const BaseValue = buildComponentWithDataType("Icon", "p");
+const BaseIcon = buildComponentWithDataType("Value", "div");
+const BaseLabel = buildComponentWithDataType("Value", "div"); 
+// Possibly move this to seperete Comp and retain styles targeting it using data-*
+// if placed within a button?
+
+
+// STYLED ---------------------------------------------------------------------------
+
+// Here we add the styling to all the components
+
+const StyledRoot = styled(BaseRoot, {
       // Reset
     all: 'unset',
     alignItems: 'center',
@@ -20,12 +69,6 @@ const StyledButton = styled("button", {
         outline: "none",
         boxShadow: 'inset 0 0 0 1px $$currentColor8, 0 0 0 1px $$currentColor8',
     },
-    // '&:hover':{
-    //     backgroundColor: '$$currentColor5'
-    // },
-    // '&:active':{
-    //     backgroundColor: '$$currentColor6'
-    // },
 
     variants: {
         color: {
@@ -253,11 +296,12 @@ const StyledButton = styled("button", {
             inline: true,
             css: {
                 px: "0px",
-                py: "0px"
+                py: "0px",
+                height: "auto",
+                fontSize: "inherit"
             }
         }
     ],
-
 
     defaultVariants: {
         color: "slate",
@@ -266,5 +310,16 @@ const StyledButton = styled("button", {
     }
 })
 
-const Button = StyledButton
-export default Button
+const StyledContent = styled(BaseContent, {})
+const StyledIcon = styled(BaseIcon, {})
+const StyledValue = styled(BaseValue, {})
+const StyledLabel = styled(BaseLabel, {})
+
+// EXPORTS ---------------------------------------------------------------------------
+
+export const Root = StyledRoot
+export const Content = StyledContent
+export const Icon = StyledIcon
+export const Value = StyledValue
+export const Label = StyledLabel
+ 
