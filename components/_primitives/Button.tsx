@@ -30,6 +30,10 @@
 [] Figure out how to assign a change in padding rules when theres only a icon and nothing else
    maybe a way to do this is by adding a HTML attr that if Button.Value is exist it sets to true
    and the would override the default of no padding and then add only when theres a value? 
+
+[] Make button support read only mode which won't dim like disabled does but also wont be clickable
+   change cursor to not be pointer (maybe ever cross?)
+
 */
 
 
@@ -76,7 +80,13 @@ const StyledRoot = styled(BaseRoot, {
     cursor: "pointer",
     lineHeight: 1,
     display: "flex",
-    
+    fontWeight: "500",
+    gap: 6,
+
+    '&:disabled': {
+        opacity: 0.6,
+        cursor: "not-allowed"
+    },
     
     '&:focus': {
         outline: "none",
@@ -89,10 +99,17 @@ const StyledRoot = styled(BaseRoot, {
       gap: 6, // this might need to change based on size
       alignItems: "center"
     },
+    '& [data-magical-button-label]':{
+        px: 4,
+        py: 2,
+        borderRadius: 2,
+        fontWeight: "400",
+        fontSize: "0.9em"
+    },
 
     variants: {
         layout: {
-            spaceBetween: {
+            ['space-between']: {
                 justifyContent: "space-between"
             },
             center: {
@@ -327,8 +344,6 @@ const StyledRoot = styled(BaseRoot, {
 
         },
         size: {
-            // probably could remove making the padding a var
-            // if inline true, remove all padding and set hieght to auto
             sm: {
                 fontSize: 14,
                 borderRadius: 4,
@@ -352,10 +367,17 @@ const StyledRoot = styled(BaseRoot, {
             primary: { 
                 backgroundColor: '$$currentColor10',
                 color: "$$currentColor1",
+                '& [data-magical-button-label]': {
+                    backgroundColor: "$$currentColor8",
+                    color: "$$currentColor5",
+                }
             },
             secondary: { 
                 backgroundColor: '$$currentColor4',
                 color: "$$currentColor10",
+                '&:hover': {
+                    backgroundColor: '$$currentColor5',
+                }
             },
             tertiary: {
                 color: "$$currentColor9",
@@ -372,25 +394,60 @@ const StyledRoot = styled(BaseRoot, {
                 height: "auto", // parent should define buttons height
                 display: "inline-flex",
                 userSelect: 'unset',
-                fontSize: "inherit" // parent should define text size
+                fontSize: "inherit", // parent should define text size
+                fontWeight: "inherit"
+            },
+        },
+        ghost: {
+            true: {
+                // maybe make this a comound variant so it only triggers for secondary?
+                backgroundColor: "transparent",
+                textDecoration: "none",
+            }
+        },
+        readOnly: {
+            true: {
+                cursor: "not-allowed"
+            }
+        },
+        iconOnly: {
+            true: {
+                width: "auto",
+                aspectRatio: "1 / 1",
+                px: 0,
+                py: 0 
+            }
+        },
+        dim: {
+            true: {
+                color: "$$currentColor8",
+                '&:hover':{
+                    color: "currentColor",
+                }
             }
         }
     },
 
     compoundVariants: [
         {
-            // slate 9 as a bg doesn't look "primary" so an exception is made
+            // slate 10 as a bg doesn't look "primary" so an exception is made
             affordance: "primary",
             color: "slate",
+            dim: false,
             css: {
                 backgroundColor: '$$currentColor12',
-                color: '$$currentColor1'
+                color: '$$currentColor1',
+                '& [data-magical-button-label]': {
+                    backgroundColor: "$$currentColor11",
+                    color: "$$currentColor8",
+                }
             }
         },
         {
             // slate 10 on text looks disabled so an exception is made
             affordance: "secondary",
             color: "slate",
+            dim: false,
             css: {
                 color: '$$currentColor12'
             }
@@ -399,6 +456,7 @@ const StyledRoot = styled(BaseRoot, {
             // slate 10 on text looks disabled so an exception is made
             affordance: "tertiary",
             color: "slate",
+            dim: false,
             css: {
                 color: '$$currentColor12'
             }
@@ -416,9 +474,10 @@ const StyledRoot = styled(BaseRoot, {
 
     defaultVariants: {
         color: "slate",
-        size: "md",
+        size: "sm",
         affordance: 'primary',
-        layout: "center"
+        layout: "center",
+        dim: false
     }
 })
 
@@ -461,7 +520,22 @@ const StyledValue = styled(BaseValue, {
         }
     }
 })
-const StyledLabel = styled(BaseLabel, {})
+const StyledLabel = styled(BaseLabel, {
+    fontFamily: theme.fonts.mono,
+    variants: {
+        iconOnly: {
+            true: {
+                // DOESN'T WORK: seems like the size is being inherited somehow...
+                // px: 0,
+                // py: 0,
+                // height: 18,
+                // width: "auto",
+                // aspectRatio: "1 / 1"
+            },
+        },
+    },
+
+})
 
 // EXPORTS ---------------------------------------------------------------------------
 
