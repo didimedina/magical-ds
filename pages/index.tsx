@@ -104,6 +104,12 @@ const Home: NextPage = () => {
             </Button.Content>
           </Button.Root>
 
+          {/* Example 4 */}
+
+          <Box as={"p"} css={{ width: 400, color: theme.colors.slate10}}> 
+            Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.
+          </Box>
+
 
 
       </Box>
