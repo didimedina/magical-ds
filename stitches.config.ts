@@ -78,6 +78,61 @@ export const { theme, styled, getCssText, css } = createStitches({
       serif: "'Poppins', sans-serif",
       mono: "'Space Mono', monospace"
     },
+    fontSizes: {
+      fontSize1: "10px",
+      fontSize2: "12px",
+      fontSize3: "14px",
+      fontSize4: "16px",
+      fontSize5: "20px",
+      fontSize6: "28px",
+      fontSize7: "40px",
+      fontSize8: "56px",
+    },
+    sizes: {
+      size1: "6px",
+      size2: "8px",
+      size3: "12px",
+      size4: "16px",
+      size5: "24px",
+      size6: "32px",
+      size7: "48px",
+      size8: "64px",
+      size10: "96px",
+      // relSize1: "10%", 
+      // relSize2: "20%",
+      // relSize3: "30%",
+      // relSize4: "40%",
+      // relSize5: "50%",
+      // relSize6: "60%",
+      // relSize7: "70%",
+      // relSize8: "80%",
+      // relSize9: "90%",
+      // relSize10: "100%",
+    },
+    space: {
+      // Scale
+      // 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048 
+      // dense:   1, 2, 3, | 4, 6,  8,  12, 16, 24, 32, 48, 64
+      // regular: 1, 2, 4, | 6, 8,  12, 16, 24, 32, 48, 64, 96
+      // loose:   1, 3, 6, | 8, 12, 16, 24, 32, 48, 56, 80, 112
+      space1: "1px",
+      space2: "2px",
+      space3: "4px", 
+      space4: "6px",
+      space5: "8px",
+      space6: "12px",
+      space7: "16px",
+      space8: "24px",
+      space9: "32px",
+      space10: "48px",
+      space11: "64px",
+      space12: "96px",
+    },
+    lineHeights: {
+      lineHeight1: '1',
+      lineHeight2: '1.25',
+      lineHeight3: '1.5',
+    },
     colors: {
       ...tomato,
       ...red,
@@ -115,9 +170,6 @@ export const { theme, styled, getCssText, css } = createStitches({
   }
 });
 
-// TODO: Auto responsive can be just themes
-// applied at the root just like colors
-
 export const darkTheme = createTheme('dark', {
     colors: {
       ...tomatoDark,
@@ -136,6 +188,105 @@ export const darkTheme = createTheme('dark', {
       ...orangeDark,
       ...brownDark,
       ...slateDark
+    }
+})
+
+export const looselySized = createTheme('loosely-sized', {
+    fontSizes: {
+      fontSize1: "12px",
+      fontSize2: "14px",
+      fontSize3: "16px",
+      fontSize4: "20px",
+      fontSize5: "24px",
+      fontSize6: "32px",
+      fontSize7: "48px",
+      fontSize8: "64px",
+    },
+    space: {
+      // loose:   1, 3, 6, | 8, 12, 16, 24, 32, 48, 56, 80
+      space1: "1px",
+      space2: "3px",
+      space3: "6px", 
+      space4: "8px",
+      space5: "12px",
+      space6: "16px",
+      space7: "24px",
+      space8: "32px",
+      space9: "48px",
+      space10: "56px",
+      space11: "80px",
+      space12: "112px",
+    },
+    sizes: {
+      size1: "6px", 
+      size2: "8px",
+      size3: "12px",
+      size4: "16px",
+      size5: "24px",
+      size6: "32px",
+      size7: "48px",
+      size8: "56px",
+      size9: "80px",
+      size10: "112px",
+      // relSize1: "10%", 
+      // relSize2: "20%",
+      // relSize3: "30%",
+      // relSize4: "40%",
+      // relSize5: "50%",
+      // relSize6: "60%",
+      // relSize7: "70%",
+      // relSize8: "80%",
+      // relSize9: "90%",
+      // relSize10: "100%",
+    },
+})
+
+export const denselySized = createTheme('densely-sized', {
+    fontSizes: {
+      fontSize1: "10px",
+      fontSize2: "12px",
+      fontSize3: "14px",
+      fontSize4: "16px",
+      fontSize5: "20px",
+      fontSize6: "24px",
+      fontSize7: "28px",
+      fontSize8: "32px",
+    },
+    space: {
+      // dense:   1, 2, 3, | 4, 6,  8,  12, 16, 24, 32, 48, 64
+      space1: "1px",
+      space2: "2px",
+      space3: "3px", 
+      space4: "4px",
+      space5: "6px",
+      space6: "8px",
+      space7: "12px",
+      space8: "16px",
+      space9: "24px",
+      space10: "32px",
+      space11: "48px",
+      space12: "64px",
+    },
+    sizes: {
+      size1: "4px",
+      size2: "6px",
+      size3: "8px",
+      size4: "12px",
+      size5: "16px",
+      size6: "24px",
+      size7: "32px",
+      size8: "48px",
+      size10: "64px",
+      // relSize1: "10%", 
+      // relSize2: "20%",
+      // relSize3: "30%",
+      // relSize4: "40%",
+      // relSize5: "50%",
+      // relSize6: "60%",
+      // relSize7: "70%",
+      // relSize8: "80%",
+      // relSize9: "90%",
+      // relSize10: "100%",
     }
 })
 

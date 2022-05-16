@@ -65,8 +65,9 @@ const BaseLabel = buildComponentWithDataType("Label", "div");
 
 // Here we add the styling to all the components
 
+
 const StyledRoot = styled(BaseRoot, {
-      // Reset
+    // Reset
     all: 'unset',
     alignItems: 'center',
     boxSizing: 'border-box',
@@ -99,6 +100,7 @@ const StyledRoot = styled(BaseRoot, {
       gap: 6, // this might need to change based on size
       alignItems: "center"
     },
+
     '& [data-magical-button-label]':{
         px: 4,
         py: 2,
@@ -345,19 +347,19 @@ const StyledRoot = styled(BaseRoot, {
         },
         size: {
             sm: {
-                fontSize: 14,
+                fontSize: theme.fontSizes.fontSize3,
                 borderRadius: 4,
                 px: 12,
-                height: 32,
+                height: 40,
             },
             md: {
-                fontSize: 16,
+                fontSize: theme.fontSizes.fontSize3,
                 borderRadius: 6,
                 px: 16,
                 height: 40,
             },
             lg: {
-                fontSize: 20,
+                fontSize: theme.fontSizes.fontSize4,
                 borderRadius: 8,
                 px: 20,
                 height: 52,
@@ -394,8 +396,8 @@ const StyledRoot = styled(BaseRoot, {
                 height: "auto", // parent should define buttons height
                 display: "inline-flex",
                 userSelect: 'unset',
-                fontSize: "inherit", // parent should define text size
-                fontWeight: "inherit"
+                fontSize: "unset", // parent should define text size
+                fontWeight: "unset"
             },
         },
         ghost: {
@@ -407,7 +409,8 @@ const StyledRoot = styled(BaseRoot, {
         },
         readOnly: {
             true: {
-                cursor: "not-allowed"
+                cursor: "not-allowed",
+                
             }
         },
         iconOnly: {

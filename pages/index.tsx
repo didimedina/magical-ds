@@ -2,8 +2,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Box from '../components/_primitives/Box'
 import * as Button from '../components/_primitives/Button'
-import { css, theme, darkTheme } from '../stitches.config'
+import { css, theme, darkTheme, looselySized, denselySized } from '../stitches.config'
 import { CloudSlash, Command, Check, Lightning, MapPinLine, DotsThreeOutlineVertical } from 'phosphor-react'
+import Text from '../components/_primitives/Text'
 
 const containterStyles = css({
   display: "flex",
@@ -52,6 +53,8 @@ const Home: NextPage = () => {
 
   const isUser = false
   const isError = false
+  // const density = ''
+  const density = denselySized
 
   return (
     <div className={ darkMode ? darkTheme : '' }>
@@ -60,7 +63,7 @@ const Home: NextPage = () => {
         <meta name="description" content="The start of something awesome!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={containterStyles()}>
+      <Box className={`${containterStyles()} ${density}`}>
 
         {/* Example 1 */}
 
@@ -82,7 +85,7 @@ const Home: NextPage = () => {
               <Button.Icon><CloudSlash weight='bold'/></Button.Icon>
             </Button.Root>
             
-            <Button.Root iconOnly dim ghost affordance={"secondary"}>
+            <Button.Root iconOnly ghost dim affordance={"secondary"} color={"slate"}>
               <Button.Icon><Lightning weight='bold'/></Button.Icon>
             </Button.Root>
             
@@ -106,9 +109,12 @@ const Home: NextPage = () => {
 
           {/* Example 4 */}
 
-          <Box as={"p"} css={{ width: 400, color: theme.colors.slate10}}> 
+          <Box as={"p"} css={{ fontSize: theme.fontSizes.fontSize2, width: 400, color: theme.colors.slate10}}> 
             Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.
           </Box>
+
+          <Text bold size={"lg"}>Hello World</Text>
+          <Text dim size={"xs"} font={"mono"}>Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.</Text>
 
 
 
