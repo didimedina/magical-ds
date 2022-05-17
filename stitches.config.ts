@@ -38,6 +38,9 @@ import type * as Stitches from '@stitches/react';
 export type { VariantProps } from '@stitches/react';
 
 const preflight = globalCss({
+  ':root':{
+    fontSize: "4px"
+  },
   // reset global styles based on TWCSS Preflight https://tailwindcss.com/docs/preflight
   'blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre': {
     margin: 0,
@@ -79,14 +82,14 @@ export const { theme, styled, getCssText, css } = createStitches({
       mono: "'Space Mono', monospace"
     },
     fontSizes: {
-      fontSize1: "10px",
-      fontSize2: "12px",
-      fontSize3: "14px",
-      fontSize4: "16px",
-      fontSize5: "20px",
-      fontSize6: "28px",
-      fontSize7: "40px",
-      fontSize8: "56px",
+      fontSize1: "2.5rem",
+      fontSize2: "3rem",
+      fontSize3: "3.5rem",
+      fontSize4: "4rem",
+      fontSize5: "5rem",
+      fontSize6: "7rem",
+      fontSize7: "10rem",
+      fontSize8: "14rem",
     },
     sizes: {
       size1: "6px",
@@ -98,19 +101,9 @@ export const { theme, styled, getCssText, css } = createStitches({
       size7: "48px",
       size8: "64px",
       size10: "96px",
-      // relSize1: "10%", 
-      // relSize2: "20%",
-      // relSize3: "30%",
-      // relSize4: "40%",
-      // relSize5: "50%",
-      // relSize6: "60%",
-      // relSize7: "70%",
-      // relSize8: "80%",
-      // relSize9: "90%",
-      // relSize10: "100%",
     },
     space: {
-      // Scale
+      // Scale in pixels -- isn't good and leaves akward outcomes.
       // 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048 
       // dense:   1, 2, 3, | 4, 6,  8,  12, 16, 24, 32, 48, 64
       // regular: 1, 2, 4, | 6, 8,  12, 16, 24, 32, 48, 64, 96

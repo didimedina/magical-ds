@@ -19,10 +19,12 @@ const BaseText = buildComponentWithDataType("Text", "p")
 
 const StyledText = styled(BaseText, {
 
-    // fontSize: "10px",
+    // Set default values
     $$currentStyle: "regular",
     $$currentWeight: "regular",
     $$currentColor: theme.colors.slate12,
+
+    // Hoist variables from props
     fontSize: "$$currentSize",
     fontFamily: "$$currentFont",
     fontWeight: "$$currentWeight",

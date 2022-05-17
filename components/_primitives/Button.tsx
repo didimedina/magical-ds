@@ -109,6 +109,14 @@ const StyledRoot = styled(BaseRoot, {
         fontSize: "0.9em"
     },
 
+    /* BUG
+        even tho the currentSize is being hoisted up as size is set by the prop
+        fontSize being adjusted doesn't change the root. Anywhere you use rems,
+        it will continue to assume the root is 4px and anytime you use ems you get a compounding
+        ems issue. Can you scope root locally by using the :root selector? 
+    */
+    fontSize: "$$currentScopedRootSize",
+
     variants: {
         layout: {
             ['space-between']: {
@@ -347,10 +355,22 @@ const StyledRoot = styled(BaseRoot, {
         },
         size: {
             sm: {
-                fontSize: theme.fontSizes.fontSize3,
+                // TODO: refactor this code so that the only thing small does is hoist $$currentScopedRootSize
+                // and then all other styles are calc()'s set in the root.
+                $$currentScopedRootSize: theme.fontSizes.fontSize4,
+                fontSize: "$$currentScopedRootSize",
                 borderRadius: 4,
-                px: 12,
-                height: 40,
+                px: "calc($$currentScopedRootSize * 0.5)",
+                height: "calc($$currentScopedRootSize * 2)", 
+                '& [data-magical-button-label]':{
+                    fontSize: "calc($$currentScopedRootSize * 0.75)", 
+                    px: "calc($$currentScopedRootSize * 0.25)", 
+                    display: "flex",
+                    alignItems: "center",
+                    height: "calc($$currentScopedRootSize)",
+                    borderRadius: 2,
+                    fontWeight: "400",
+                },
             },
             md: {
                 fontSize: theme.fontSizes.fontSize3,

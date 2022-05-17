@@ -54,7 +54,7 @@ const Home: NextPage = () => {
   const isUser = false
   const isError = false
   // const density = ''
-  const density = denselySized
+  const density = ''
 
   return (
     <div className={ darkMode ? darkTheme : '' }>
