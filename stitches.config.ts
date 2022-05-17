@@ -82,44 +82,22 @@ export const { theme, styled, getCssText, css } = createStitches({
       mono: "'Space Mono', monospace"
     },
     fontSizes: {
-      fontSize1: "2.5rem",
-      fontSize2: "3rem",
-      fontSize3: "3.5rem",
-      fontSize4: "4rem",
-      fontSize5: "5rem",
-      fontSize6: "7rem",
-      fontSize7: "10rem",
-      fontSize8: "14rem",
+      fontSize1: "2.5rem", // 10
+      fontSize2: "3rem", // 12px
+      fontSize3: "3.5rem", // 14px
+      fontSize4: "4rem", // 16px
+      fontSize5: "5rem", // 20px
+      fontSize6: "7rem", // 28px
+      fontSize7: "10rem", // 40px
+      fontSize8: "14rem", // 56px
     },
-    sizes: {
-      size1: "6px",
-      size2: "8px",
-      size3: "12px",
-      size4: "16px",
-      size5: "24px",
-      size6: "32px",
-      size7: "48px",
-      size8: "64px",
-      size10: "96px",
-    },
+
     space: {
       // Scale in pixels -- isn't good and leaves akward outcomes.
       // 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048 
       // dense:   1, 2, 3, | 4, 6,  8,  12, 16, 24, 32, 48, 64
       // regular: 1, 2, 4, | 6, 8,  12, 16, 24, 32, 48, 64, 96
       // loose:   1, 3, 6, | 8, 12, 16, 24, 32, 48, 56, 80, 112
-      space1: "1px",
-      space2: "2px",
-      space3: "4px", 
-      space4: "6px",
-      space5: "8px",
-      space6: "12px",
-      space7: "16px",
-      space8: "24px",
-      space9: "32px",
-      space10: "48px",
-      space11: "64px",
-      space12: "96px",
     },
     lineHeights: {
       lineHeight1: '1',

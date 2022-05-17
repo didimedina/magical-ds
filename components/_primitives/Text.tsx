@@ -19,71 +19,85 @@ const BaseText = buildComponentWithDataType("Text", "p")
 
 const StyledText = styled(BaseText, {
 
-    // Set default values
-    $$currentStyle: "regular",
-    $$currentWeight: "regular",
-    $$currentColor: theme.colors.slate12,
+    // all: "unset",
+
+    // Set default variables
+    $$textRootStyle: "regular",
+    $$textRootWeight: "regular",
+    $$textRootColor: theme.colors.slate12,
 
     // Hoist variables from props
-    fontSize: "$$currentSize",
-    fontFamily: "$$currentFont",
-    fontWeight: "$$currentWeight",
-    fontStyle: "$$currentStyle",
-    color: "$$currentColor",
+    fontSize: "$$textRootFontSize",
+    fontFamily: "$$textRootFont",
+    fontWeight: "$$textRootWeight",
+    fontStyle: "$$textRootStyle",
+    color: "$$textRootColor",
+    lineHeight: "calc($$textRootFontSize * 1.25)",
+    display: "inline",
+
+    // Set children to adopt new variables
+    '& [data-magical-button-root]': {
+        px: "calc($$textRootFontSize * 0.25)",
+        py: "calc($$textRootFontSize * 0.125)",
+        height: "auto",
+        borderRadius: "calc($$textRootFontSize * 0.25)", // why is this rendering 4px? 
+    },
 
 
     variants: {
         size: {
             xs: {
-                $$currentSize: theme.fontSizes.fontSize1
+                $$textRootFontSize: theme.fontSizes.fontSize1
             },
             sm: {
-                $$currentSize: theme.fontSizes.fontSize2
+                $$textRootFontSize: theme.fontSizes.fontSize2
             },
             md: {
-                $$currentSize: theme.fontSizes.fontSize3
+                $$textRootFontSize: theme.fontSizes.fontSize3
             },
             lg: {
-                $$currentSize: theme.fontSizes.fontSize4
+                $$textRootFontSize: theme.fontSizes.fontSize4
             },
             xl: {
-                $$currentSize: theme.fontSizes.fontSize5
+                $$textRootFontSize: theme.fontSizes.fontSize5
             },
             ['2xl']: {
-                $$currentSize: theme.fontSizes.fontSize6
+                $$textRootFontSize: theme.fontSizes.fontSize6
             },
             ['3xl']: {
-                $$currentSize: theme.fontSizes.fontSize7
+                $$textRootFontSize: "68px"
             },
             ['4xl']: {
-                $$currentSize: theme.fontSizes.fontSize8
+                $$textRootFontSize: theme.fontSizes.fontSize8
             },
         },
         font: {
             serif: {
-                $$currentFont: theme.fonts.serif
+                $$textRootFont: theme.fonts.serif
             },
             mono: {
-                $$currentFont: theme.fonts.mono
+                $$textRootFont: theme.fonts.mono
             },
         },
         dim: {
             true: {
-                $$currentColor: theme.colors.slate10
+                $$textRootColor: theme.colors.slate10
             },
         },
         italic: {
             true: {
-                $$currentStyle : "italic"
+                $$textRootStyle : "italic"
             }
         },
         bold: {
             true: {
-                $$currentWeight : "bold"
+                $$textRootWeight : "bold"
             }
         },
     },
-
+    defaultVariants: {
+        size: "md"
+    }
 
 })
 

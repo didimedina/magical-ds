@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Box from '../components/_primitives/Box'
 import * as Button from '../components/_primitives/Button'
 import { css, theme, darkTheme, looselySized, denselySized } from '../stitches.config'
-import { CloudSlash, Command, Check, Lightning, MapPinLine, DotsThreeOutlineVertical } from 'phosphor-react'
+import { CloudSlash, Command, Check, Lightning, MapPinLine, DotsThreeOutlineVertical, CaretDown } from 'phosphor-react'
 import Text from '../components/_primitives/Text'
 
 const containterStyles = css({
@@ -53,8 +53,6 @@ const Home: NextPage = () => {
 
   const isUser = false
   const isError = false
-  // const density = ''
-  const density = ''
 
   return (
     <div className={ darkMode ? darkTheme : '' }>
@@ -63,7 +61,7 @@ const Home: NextPage = () => {
         <meta name="description" content="The start of something awesome!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={`${containterStyles()} ${density}`}>
+      <Box className={containterStyles()}>
 
         {/* Example 1 */}
 
@@ -96,7 +94,7 @@ const Home: NextPage = () => {
 
           {/* Example 3 */}
 
-          <Button.Root css={{width: 200}} layout={"space-between"} affordance={"primary"} color={"slate"}>
+          <Button.Root css={{width: 200}} layout={"space-between"} affordance={"primary"} color={"slate"} size={"lg"}>
             <Button.Content>
               <Button.Icon><Check weight='bold'/></Button.Icon>
               <Button.Value>Save</Button.Value>
@@ -109,12 +107,20 @@ const Home: NextPage = () => {
 
           {/* Example 4 */}
 
-          <Box as={"p"} css={{ fontSize: theme.fontSizes.fontSize2, width: 400, color: theme.colors.slate10}}> 
+          <Text> 
             Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.
+          </Text>
+          {/* how would the button here be set implicitly by fontSize? do we need TextGroup? */}
+          <Box css={{ display: "flex", alignItems: "center", gap: 4}}> 
+            <Text size={"2xl"}>March</Text>
+            <Text size={"2xl"} dim> 2022</Text>
+            <Button.Root iconOnly dim ghost affordance={"secondary"}>
+              <Button.Icon><CaretDown weight='fill'/></Button.Icon>
+            </Button.Root>
           </Box>
 
           <Text bold size={"lg"}>Hello World</Text>
-          <Text dim size={"xs"} font={"mono"}>Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.</Text>
+          <Text dim size={"xl"} font={"serif"}>Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.</Text>
 
 
 
