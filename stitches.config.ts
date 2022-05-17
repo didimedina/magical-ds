@@ -90,6 +90,10 @@ export const { theme, styled, getCssText, css } = createStitches({
       fontSize6: "7rem", // 28px
       fontSize7: "10rem", // 40px
       fontSize8: "14rem", // 56px
+      // TODO: maybe containers can have width set with ch,
+      // to insure it holds a specific amount of char?
+      // this likely won't work because it will inherit rem from the 
+      // root which wouldn't be the desired behavior
     },
 
     space: {

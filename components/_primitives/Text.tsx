@@ -1,15 +1,15 @@
 import { styled, theme } from '../../stitches.config';
 
-type ComponentDataTypes = "Text"
+type ComponentDataTypes = "Root"
 
 function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
     const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-button-${dataType.toLowerCase()}`]: "", ...props}} />;        
+    const Comp = (props: any) => <Tag {...{[`data-magical-text-${dataType.toLowerCase()}`]: "", ...props}} />;        
     Comp.displayName = `${dataType}`;
     return Comp;
 }
 
-const BaseText = buildComponentWithDataType("Text", "p")
+const BaseText = buildComponentWithDataType("Root", "p")
 
 
 /* -------------------------------------------------------------------------------------------------
@@ -40,11 +40,17 @@ const StyledText = styled(BaseText, {
         px: "calc($$textRootFontSize * 0.25)",
         py: "calc($$textRootFontSize * 0.125)",
         height: "auto",
+        display: "inline-flex",
         borderRadius: "calc($$textRootFontSize * 0.25)", // why is this rendering 4px? 
+        '&[affordance="tertiary"]': {
+            
+        },
     },
 
 
     variants: {
+        // in 3 days is a string that is orange in ui.
+        // should text support colors? 
         size: {
             xs: {
                 $$textRootFontSize: theme.fontSizes.fontSize1
@@ -65,7 +71,7 @@ const StyledText = styled(BaseText, {
                 $$textRootFontSize: theme.fontSizes.fontSize6
             },
             ['3xl']: {
-                $$textRootFontSize: "68px"
+                $$textRootFontSize: theme.fontSizes.fontSize7
             },
             ['4xl']: {
                 $$textRootFontSize: theme.fontSizes.fontSize8

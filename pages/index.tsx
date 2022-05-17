@@ -39,15 +39,6 @@ const darkMode = false
 
 */
 
-/* API
-
-Root -> affordance | inline | size | layout | color
-Icon -> shrink | dim
-Value -> shrink | dim
-Content -> ~
-Label -> TBD
-
-*/
 
 const Home: NextPage = () => {
 
@@ -69,11 +60,21 @@ const Home: NextPage = () => {
           ghost
           affordance={"secondary"}
           dim
+          readOnly
           color={"slate"}
-          size={"sm"}>
+          size={"lg"}>
             <Button.Icon><MapPinLine weight='bold'/></Button.Icon>
             <Button.Value>Add location...</Button.Value>
           </Button.Root>
+          <Button.Root
+            ghost
+            affordance={"secondary"}
+            dim
+            color={"slate"}
+            size={"lg"}>
+              <Button.Value>Select...</Button.Value>
+              <Button.Icon shrink dim><CaretDown weight='bold'/></Button.Icon>
+            </Button.Root>
           
           {/* Example 2 */}
 
@@ -106,8 +107,7 @@ const Home: NextPage = () => {
           </Button.Root>
 
           {/* Example 4 */}
-
-          <Text> 
+          <Text font={"mono"}> 
             Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.
           </Text>
           {/* how would the button here be set implicitly by fontSize? do we need TextGroup? */}
@@ -119,8 +119,22 @@ const Home: NextPage = () => {
             </Button.Root>
           </Box>
 
+          <Box>
+            <Text size={"4xl"}>
+              <Button.Root 
+                affordance={"secondary"}
+                ghost
+                inline
+              >
+                <Button.Value>March</Button.Value>
+                <Button.Value dim>2022</Button.Value>
+                <Button.Icon dim shrink><CaretDown/></Button.Icon>
+              </Button.Root>
+            </Text>
+          </Box>
+
           <Text bold size={"lg"}>Hello World</Text>
-          <Text dim size={"xl"} font={"serif"}>Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"secondary"}>@TP</Button.Root> presentation in advance.</Text>
+          <Text dim size={"4xl"} font={"serif"}>Hey Team, in preperation for our meeting please review <Button.Root inline color={"orange"} affordance={"tertiary"}>@TP</Button.Root> presentation in advance.</Text>
 
 
 

@@ -51,6 +51,7 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
     return Comp;
 }
 
+
 // Here we build the headless version of every component 
 const BaseRoot = buildComponentWithDataType("Root", "button");
 const BaseContent = buildComponentWithDataType("Content", "div");
@@ -97,7 +98,8 @@ const StyledRoot = styled(BaseRoot, {
     
     '&:focus': {
         outline: "none",
-        boxShadow: 'inset 0 0 0 1px $$buttonRootColor8, 0 0 0 1px $$buttonRootColor8',
+        // boxShadow: 'inset 0 0 0 1px $$buttonRootColor8, 0 0 0 1px $$buttonRootColor8',
+        boxShadow: '0 0 0 calc($$buttonRootFontSize * 0.125) $$buttonRootColor8',
     },
 
     '& [data-magical-button-content]': {
@@ -119,6 +121,7 @@ const StyledRoot = styled(BaseRoot, {
     },
 
     variants: {
+        // TODO: maybe add a variant for width offering 'fill' and 'auto' as options
         layout: {
             ['space-between']: {
                 justifyContent: "space-between"
@@ -357,19 +360,15 @@ const StyledRoot = styled(BaseRoot, {
         size: {
             sm: {
                 $$buttonRootFontSize: theme.fontSizes.fontSize2,
-
             },
             md: {
                 $$buttonRootFontSize: theme.fontSizes.fontSize3,
-
             },
             lg: {
                 $$buttonRootFontSize: theme.fontSizes.fontSize4,
-
             },
             xl: {
                 $$buttonRootFontSize: theme.fontSizes.fontSize4,
-
             },
         },
         affordance: {
@@ -388,22 +387,22 @@ const StyledRoot = styled(BaseRoot, {
                 color: "$$buttonRootColor9",
                 textDecoration: "underline",
                 textDecorationColor: "$$buttonRootColor6",
-                textUnderlineOffset: 2,
-                textDecorationThickness: 2,
+                textUnderlineOffset: "calc($$buttonRootFontSize * 0.125)",
+                textDecorationThickness: "calc($$buttonRootFontSize * 0.125)",
             },
         },
         inline: {
             true: {
-                // unset all the styles we want the wrapping parent to control
+                // unset all the styles we want the wrapping Text comp to control instead
                 px: "unset",
                 py: "unset",
-                display: "unset",
                 height: "unset", 
                 userSelect: 'unset',
                 fontSize: "unset",
                 fontWeight: "unset",
                 lineHeight: "unset",
                 borderRadius: "unset",
+                display: "unset", // see if this can be removed. currently it's causing issues without.
             },
         },
         ghost: {
@@ -414,6 +413,7 @@ const StyledRoot = styled(BaseRoot, {
             }
         },
         readOnly: {
+            // TODO: check to see if using this along side disabled and dim makes much sense
             true: {
                 cursor: "not-allowed",
             }
@@ -428,9 +428,9 @@ const StyledRoot = styled(BaseRoot, {
         },
         dim: {
             true: {
-                color: "$$buttonRootColor8",
+                color: "$$buttonRootColor9",
                 '&:hover':{
-                    color: "buttonRootColor",
+                    color: "currentColor",
                 }
             }
         }
@@ -491,7 +491,8 @@ const StyledRoot = styled(BaseRoot, {
 
 const StyledContent = styled(BaseContent, {})
 const StyledIcon = styled(BaseIcon, {
-    // maybe change this to set default to 1.2 and make Boolean called shrink
+    // TODO: maybe change this to set default to 1.2 and make Boolean called shrink
+    // TODO: maybe change the values to use calc($$buttonRootFontSize)
     '& svg': {
         width: "1.2em",
         height: "1.2em",
