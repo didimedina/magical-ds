@@ -13,21 +13,33 @@ const BaseRoot = buildComponentWithDataType("Root", "div")
 const BaseItem = buildComponentWithDataType("Item", "div")
 
 const StyledRoot = styled(BaseRoot,{
-    // Why Grid isn't suitable for this situation:
-    // grid isn't the right tool if you want to set fr on the child,
-    // since grid assumes multiple axis grid ie 3x3 you can only tell
-    // the child how many columns or rows to span. to emulate the fr's on children
-    // effect you can set the parent to gri/rowAutoFlow and on the child if
-    // span 2 then it will automatically create 2 rows or columns each with 1fr
-    // making span 2 offer the same result as 2fr set on child. However,
-    // the span value needs to be set to the child on either gridRow or gridColumn
-    // and if you set span 2 to gridRow and the parent is set to column you get and extra culomn
-    // you don't expect and theres no way to prevent this. This is inherit to CSS grid because
-    // it assumes 2 axis spanning.  
-    display: "flex",
-
+    
+    // Base styles
+    display: "flex", // should this allow for inline-flex passed as a variable?
+    flexWrap: "nowrap",
+    $$stackRootFontSize: theme.fontSizes.fontSize3,
+    fontSize: "$$stackRootFontSize",
     
     variants: {
+        padding: {
+            tighter: { padding: "calc($$stackRootFontSize * 0.25)" },
+            tight: { padding: "calc($$stackRootFontSize * 0.5)" },
+            regular: { padding: "$$stackRootFontSize" },
+            loose: { padding: "calc($$stackRootFontSize * 1.5)" },
+            looser: { padding: "calc($$stackRootFontSize * 2)" },
+        },
+        gap: {
+            tighter: { gap: "calc($$stackRootFontSize * 0.25)" },
+            tight: { gap: "calc($$stackRootFontSize * 0.5)" },
+            regular: { gap: "$$stackRootFontSize" },
+            loose: { gap: "calc($$stackRootFontSize * 1.5)" },
+            looser: { gap: "calc($$stackRootFontSize * 2)" },
+        },
+        overflow: {
+            hide: { overflow: "hidden" },
+            show: { overflow: "visible" },
+            scroll: { overflow: "visible" }
+        },
         axis: {
             vertical: {
                 flexDirection: "column",
@@ -74,15 +86,6 @@ const StyledItem = styled(BaseItem,{
     variants: {
         width: {
             ['1fr']: { flexBasis: "100%",}, 
-            // width 100% doesnt have the same effect as fr.
-            // if width is set to ie 200% then it creates a horizontal scroll.
-            // flexBasis works as expected with percentages and never allows the 
-            // items to span past the parent width. However flexBasis seems
-            // to only be applied once per child and not indevidually for height 
-            // and width seperetly. this in turn makes it implossible to express
-            // share the available hieght but have an explicit width. for some reason
-            // that is still unknown, setting an explicit hieght or width while flex basis
-            // is in use does have an effect, but not the expected one. 200px generated 63.9px hieght
             ['2fr']: { flaxBasis: "200%", },
             ['3fr']: { flexBasis: "300%",},
             ['4fr']: { flexBasis: "400%" },
