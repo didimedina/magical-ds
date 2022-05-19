@@ -65,11 +65,16 @@ const StyledRoot = styled(BaseRoot,{
             start: { alignItems: "flex-start" },
             center: { alignItems: "center" },
             end: { alignItems: "flex-end" },
+            // distribute: { alignItems: "space-between" }, // <- this isn't valid code. 
+            // you can only distribute along the axis not across. 
+            // it makes sense but isn't obvious as to why natrually
+            // for this reason it's not supported to prevent confusion. 
         },
         positionAlong: {
             start: { justifyContent: "flex-start" },
             center: { justifyContent: "center" },
             end: { justifyContent: "flex-end" },
+            // distribute: { justifyContent: "space-between" },
         },
     },
     defaultVariants: {
@@ -83,36 +88,67 @@ const StyledRoot = styled(BaseRoot,{
 
 const StyledItem = styled(BaseItem,{
 
-    variants: {
-        width: {
-            ['1fr']: { flexBasis: "100%",}, 
-            ['2fr']: { flaxBasis: "200%", },
-            ['3fr']: { flexBasis: "300%",},
-            ['4fr']: { flexBasis: "400%" },
-            ['5fr']: { flexBasis: "500%" },
-            ['6fr']: { flexBasis: "600%" },
-            fit:     { width: "fit-content" },
-            ['200px']: { width: "200px" },
-            // support aspectRatio? 
+    // display: "flex",
+    // flexWrap: "nowrap",
+    $$stackItemFontSize: theme.fontSizes.fontSize3,
+    fontSize: "$$stackItemFontSize",
 
+    variants: {
+        overflow: {
+            hide: { overflow: "hidden" },
+            show: { overflow: "visible" },
+            scroll: { overflow: "visible" }
+        },
+        grow: {
+            true: { flexGrow: 1 }
+        },
+        width: {
+            'same-as-height': { aspectRatio: "1 / 1" },
+            fill10: { width: "10%"}, 
+            fill20: { width: "20%"}, 
+            fill30: { width: "30%"}, 
+            fill40: { width: "40%"}, 
+            fill50: { width: "50%"}, 
+            fill60: { width: "60%"}, 
+            fill70: { width: "70%"}, 
+            fill80: { width: "80%"}, 
+            fill90: { width: "90%"}, 
+            fill: { width: "100%"}, 
+            fit:  { width: "fit-content" },
+            auto:  { width: "auto" },
+            xs: { width: "calc($$stackItemFontSize * 14)" }, // 196px
+            sm: { width: "calc($$stackItemFontSize * 20)" }, // 280px
+            md: { width: "calc($$stackItemFontSize * 24)" }, // 336px
+            lg: { width: "calc($$stackItemFontSize * 32)" }, // 448px
+            xl: { width: "calc($$stackItemFontSize * 48)" }, // 672px
         },
         height: {
-            ['1fr']: { flexBasis: "100%",},
-            ['2fr']: { flexBasis: "200%",},
-            ['3fr']: { flexBasis: "300%",},
-            ['4fr']: { flexBasis: "400%" },
-            ['5fr']: { flexBasis: "500%" },
-            ['6fr']: { flexBasis: "600%" },
-            fit:     { height: "fit-content" },
-            ['200px']: { height: "200px" },
-
+            'same-as-width': { aspectRatio: "1 / 1" },
+            fill10: { height: "10%"}, 
+            fill20: { height: "20%"}, 
+            fill30: { height: "30%"}, 
+            fill40: { height: "40%"}, 
+            fill50: { height: "50%"}, 
+            fill60: { height: "60%"}, 
+            fill70: { height: "70%"}, 
+            fill80: { height: "80%"}, 
+            fill90: { height: "90%"}, 
+            fill: { height: "100%"}, 
+            fit:  { height: "fit-content" },
+            auto:  { height: "auto" },
+            // DO: should heights be the same as widths? Heights take up less vertical space...
+            xs: { height: "calc($$stackItemFontSize * 14)" }, // 196px
+            sm: { height: "calc($$stackItemFontSize * 20)" }, // 280px
+            md: { height: "calc($$stackItemFontSize * 24)" }, // 336px
+            lg: { height: "calc($$stackItemFontSize * 32)" }, // 448px
+            xl: { height: "calc($$stackItemFontSize * 48)" }, // 672px
+            // DECIDE: should we add mixmax() options?
         },
-
     },
     defaultVariants: {
-        width: "1fr",
-        height: "1fr",
-    //     // positionChild: "start"
+        width: "auto",
+        height: "auto",
+        overflow: "hide"
     }
 
 })

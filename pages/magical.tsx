@@ -20,11 +20,30 @@ const Magical: NextPage = () => {
                 <meta name="description" content="The start of something awesome!" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Stack.Root css={{backgroundColor: "$blue3"}} padding={"regular"} gap={"regular"} width={"fit"} height={"fit"} axis={"horizontal"}>
+            {/* <Stack.Root css={{backgroundColor: "$blue3"}} padding={"regular"} gap={"regular"} width={"fit"} height={"fit"} axis={"horizontal"}>
                 <Button.Root>Button</Button.Root>
                 <Button.Root>Button</Button.Root>
                 <Button.Root>Button</Button.Root>
                 <Button.Root>Button</Button.Root>
+            </Stack.Root> */}
+            <Stack.Root 
+                css={{backgroundColor: "$blue3"}} 
+                axis={"horizontal"}
+                padding={"regular"} 
+                gap={"regular"} 
+                width={"fill"} 
+                height={"fill"}
+                positionAlong={"start"}
+                positionAcross={"start"}
+                >
+                
+                <Stack.Item css={{backgroundColor: "$blue6"}} grow height={"sm"} width={"fill50"}>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quae pariatur ad rem temporibus. Possimus, laborum accusantium! Ab similique quos voluptatum explicabo ducimus dolor a rem quisquam, odit, ratione quae suscipit consectetur magni iusto consequuntur eum culpa fugit placeat aliquam, optio error inventore. Pariatur, tenetur molestias. Eum quibusdam placeat voluptatum corrupti molestiae explicabo, eveniet quasi. Nihil, dolorum quae. Vero animi perspiciatis placeat nisi eaque libero unde in harum fugit architecto, est doloribus, quod voluptas totam numquam voluptatibus cumque? Vitae, incidunt magnam id quam maiores vel voluptatibus accusantium praesentium odit dolor sapiente dolores dolore ullam ea illum aperiam atque quae impedit eaque, nemo laborum unde nulla? Amet repellendus alias itaque inventore voluptates tenetur illo nulla laboriosam, fuga, tempora sequi repudiandae ipsa sit aliquid nemo voluptatum maxime? Natus earum architecto mollitia. Unde possimus ea nisi fugit accusamus rerum dicta, reprehenderit omnis quibusdam officiis. Blanditiis eius et a eligendi? Rerum nihil neque odit enim modi, quod, fugit illum eligendi incidunt quis impedit saepe possimus maiores architecto non blanditiis! Sapiente alias, ipsam voluptates optio soluta corporis! Esse hic perferendis sit! Fugiat, impedit laudantium? Quis dignissimos atque quia minus voluptatum odio laborum explicabo labore totam nostrum reiciendis ab fuga enim natus neque modi, eaque reprehenderit illo eum impedit doloribus harum voluptate accusantium fugiat. Facere repudiandae doloribus quo cupiditate, libero aliquid cum voluptatem, ea facilis error incidunt quidem delectus cumque temporibus ullam vel veniam culpa excepturi? Ipsam eius eligendi modi ut provident sunt ad! Cumque nobis obcaecati esse debitis sint voluptatem porro quidem facere officia incidunt! Fuga odit totam cupiditate et, recusandae sint dolorum accusamus in incidunt exercitationem itaque libero accusantium illo dolores corrupti quis! Magni quia modi assumenda deserunt dolor doloremque harum, at omnis, a et ut, quisquam consequatur eius fugiat porro aliquid praesentium perferendis? Asperiores vel quaerat provident delectus, aut facere. At placeat sequi illo ipsa culpa asperiores aperiam inventore ducimus quo facilis soluta, maxime vel officia possimus sint iusto facere impedit neque architecto cum commodi! Eos dolorum quae, culpa iste quia delectus odio amet repellendus enim quos natus blanditiis magni cupiditate atque illum minima quis explicabo, laboriosam fugit vel quas harum tenetur? Voluptate doloremque saepe quas ipsum eius odit iste dolore impedit neque, dignissimos enim at cupiditate delectus harum modi adipisci repellendus magni natus aliquam fugit similique. Voluptas illum omnis quod totam natus harum vero officia consectetur facere nostrum non obcaecati rerum, labore voluptatem provident. Tempora perspiciatis laudantium impedit, a eius labore reiciendis!
+                </Stack.Item>
+                <Stack.Item>
+                    <Button.Root>Button</Button.Root>
+                </Stack.Item>
+
             </Stack.Root>
             {/* Grid Example -- doesn't work :/ */}
             {/* <Box 
