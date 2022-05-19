@@ -51,6 +51,18 @@ const StyledText = styled(BaseText, {
     variants: {
         // in 3 days is a string that is orange in ui.
         // should text support colors? 
+        ellipsis: { 
+            // this isn't causing the desired outcome.
+            // TODO: read docs here to fix: https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
+            true: {
+                textOverflow: "ellipsis",
+            }
+        },
+        singleLine: {
+            true: {
+                lineHeight: "$$textRootFontSize",
+            }
+        },
         size: {
             xs: {
                 $$textRootFontSize: theme.fontSizes.fontSize1
