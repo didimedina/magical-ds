@@ -37,44 +37,6 @@ import {
 import type * as Stitches from '@stitches/react';
 export type { VariantProps } from '@stitches/react';
 
-const preflight = globalCss({
-  ':root':{
-    fontSize: "4px"
-  },
-  // reset global styles based on TWCSS Preflight https://tailwindcss.com/docs/preflight
-  'blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre': {
-    margin: 0,
-  },
-  'h1, h2, h3, h4, h5, h6': {
-    fontSize: "inherit",
-    fontWeight: "inherit",
-  },
-  'ol, ul': {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  },
-  'img, svg, video, canvas, audio, iframe, embed, object': {
-    display: "block",
-    verticalAlign: "middle"
-  },
-  '*, ::before, ::after': {
-    borderWidth: "0",
-    borderStyle: "solid",
-    borderColor: 'currentColor'
-  },
-  '.google-map *': {
-    borderStyle: "none"
-  },
-  'button:focus': {
-    outline: "1px dotted",
-    // outline: "5px auto -webkit-focus-ring-color"
-  }
-
-});
-
-preflight()
-
 export const { theme, styled, getCssText, css } = createStitches({
   theme: {
     fonts: {
@@ -141,6 +103,9 @@ export const { theme, styled, getCssText, css } = createStitches({
     py: (value: Stitches.PropertyValue<'paddingLeft'>) => ({
       paddingTop: value,
       paddingBottom: value,
+    }),
+    p: (value: Stitches.PropertyValue<'paddingLeft'>) => ({
+      padding: value,
     }),
   }
 });
@@ -265,3 +230,43 @@ export const denselySized = createTheme('densely-sized', {
     }
 })
 
+const preflight = globalCss({
+  ':root':{
+    fontSize: "4px" // set the root rem
+  },
+  'body': {
+    fontSize: theme.fontSizes.fontSize3 // set the default fontSize so it doesn't always render 4px based on :root.
+  },
+  // reset global styles based on TWCSS Preflight https://tailwindcss.com/docs/preflight
+  'blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre': {
+    margin: 0,
+  },
+  'h1, h2, h3, h4, h5, h6': {
+    fontSize: "inherit",
+    fontWeight: "inherit",
+  },
+  'ol, ul': {
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+  },
+  'img, svg, video, canvas, audio, iframe, embed, object': {
+    display: "block",
+    verticalAlign: "middle"
+  },
+  '*, ::before, ::after': {
+    borderWidth: "0",
+    borderStyle: "solid",
+    borderColor: 'currentColor'
+  },
+  '.google-map *': {
+    borderStyle: "none"
+  },
+  'button:focus': {
+    outline: "1px dotted",
+    // outline: "5px auto -webkit-focus-ring-color"
+  }
+
+});
+
+preflight()

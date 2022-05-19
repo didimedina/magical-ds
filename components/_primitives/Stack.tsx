@@ -10,7 +10,7 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
 }
 
 const BaseRoot = buildComponentWithDataType("Root", "div")
-const BaseItem = buildComponentWithDataType("Root", "div")
+const BaseItem = buildComponentWithDataType("Item", "div")
 
 const StyledRoot = styled(BaseRoot,{
     // Why Grid isn't suitable for this situation:
@@ -25,65 +25,91 @@ const StyledRoot = styled(BaseRoot,{
     // you don't expect and theres no way to prevent this. This is inherit to CSS grid because
     // it assumes 2 axis spanning.  
     display: "flex",
-    alignItems: "stretch",
+
+    
     variants: {
-        direction: {
+        axis: {
             vertical: {
-                // gridAutoFlow: "row",
-                // gridAutoRows: "1fr",
-                flexDirection: "column"
+                flexDirection: "column",
             },
             horizontal: {
-                // gridAutoFlow: "column",
-                // gridAutoColumns: "1fr",
-                flexDirection: "row"
+                flexDirection: "row",
             },
         },
         width: {
             fill: { width: "100%" },
             screen: { width: "100vw" },
-            auto: { width: "auto" }
+            auto: { width: "auto" },
+            fit: {width: "fit-content" }
         },
         height: {
             fill: { height: "100%" },
             screen: { height: "100vh" },
-            auto: { height: "auto" }
+            auto: { height: "auto" },
+            fit: { height: "fit-content" }
         },
         
-        // this needs set the childrens position within the flex container
-        position: {
-            start: { width: "100%" },
-            screen: { width: "100vw" },
-            auto: { width: "auto" }
+        positionAcross: {
+            start: { alignItems: "flex-start" },
+            center: { alignItems: "center" },
+            end: { alignItems: "flex-end" },
         },
-        // once you get it working split X and Y into seperate props
+        positionAlong: {
+            start: { justifyContent: "flex-start" },
+            center: { justifyContent: "center" },
+            end: { justifyContent: "flex-end" },
+        },
     },
     defaultVariants: {
-        direction: "vertical",
-        width: "fill",
-        height: "fill",
+        axis: "vertical",
+        width: "auto",
+        height: "auto",
+        positionAcross: "start",
+        positionAlong: "start",
     }
 })
 
 const StyledItem = styled(BaseItem,{
+
     variants: {
         width: {
+            ['1fr']: { flexBasis: "100%",}, 
+            // width 100% doesnt have the same effect as fr.
+            // if width is set to ie 200% then it creates a horizontal scroll.
+            // flexBasis works as expected with percentages and never allows the 
+            // items to span past the parent width. However flexBasis seems
+            // to only be applied once per child and not indevidually for height 
+            // and width seperetly. this in turn makes it implossible to express
+            // share the available hieght but have an explicit width. for some reason
+            // that is still unknown, setting an explicit hieght or width while flex basis
+            // is in use does have an effect, but not the expected one. 200px generated 63.9px hieght
+            ['2fr']: { flaxBasis: "200%", },
+            ['3fr']: { flexBasis: "300%",},
+            ['4fr']: { flexBasis: "400%" },
+            ['5fr']: { flexBasis: "500%" },
+            ['6fr']: { flexBasis: "600%" },
+            fit:     { width: "fit-content" },
+            ['200px']: { width: "200px" },
+            // support aspectRatio? 
+
+        },
+        height: {
             ['1fr']: { flexBasis: "100%",},
             ['2fr']: { flexBasis: "200%",},
             ['3fr']: { flexBasis: "300%",},
-            ['4fr']: { flexBasis: "400%"  },
-            ['5fr']: { flexBasis: "500%"  },
-            ['6fr']: { flexBasis: "600%"  },
-            ['small']: { minWidth: "250px" }, // sizes would be different for width and height, how would you handle this?
+            ['4fr']: { flexBasis: "400%" },
+            ['5fr']: { flexBasis: "500%" },
+            ['6fr']: { flexBasis: "600%" },
+            fit:     { height: "fit-content" },
+            ['200px']: { height: "200px" },
+
         },
-        position: {
-            center: { alignSelf: "center" }, // when centering with no children, it seems invisible since theres no height.
-            start: { alignSelf: "flex-start" },
-        }
+
     },
     defaultVariants: {
         width: "1fr",
-        // positionChild: "start"
+        height: "1fr",
+    //     // positionChild: "start"
     }
 
 })
