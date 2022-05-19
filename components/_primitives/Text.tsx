@@ -56,6 +56,7 @@ const StyledText = styled(BaseText, {
             // TODO: read docs here to fix: https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
             true: {
                 textOverflow: "ellipsis",
+                whiteSpace: "nowrap"
             }
         },
         singleLine: {

@@ -5,7 +5,7 @@ import * as Button from "../components/_primitives/Button";
 import Box from "../components/_primitives/Box";
 import { css, theme } from "../stitches.config";
 import Text from "../components/_primitives/Text";
-import { CaretLeft, CloudArrowUp, DotsThreeOutlineVertical, Lightning, List, Detective } from "phosphor-react";
+import { CaretLeft, CloudArrowUp, DotsThreeOutlineVertical, Lightning, List, Detective, Clock } from "phosphor-react";
 
 // DO: fonts are rendering in index but not /magical why?
 // look into importing the fonts through stitches instead of Next _document 
@@ -50,8 +50,16 @@ const Magical: NextPage = () => {
                         </Stack>
                     </Stack>
                 </Stack>
-                <Stack css={{ backgroundColor: theme.colors.slate2 }} height={"fill"} width={"sm"}>
-                    
+                <Stack css={{ backgroundColor: theme.colors.slate2, flexShrink: 0 }} height={"fill"} width={"sm"} padding={"tight"}>
+                    <Stack padding={"tight"}>
+                        <Button.Root css={{ height: "fit-content" }} ghost affordance={"secondary"}>
+                            <Button.Icon><Clock weight="bold"/></Button.Icon>
+                            <Stack>
+                                <Button.Value>12:30pm</Button.Value>
+                                <Button.Value>in 15min</Button.Value>
+                            </Stack>
+                        </Button.Root>
+                    </Stack>
                 </Stack>
             </Stack>
         </Box>

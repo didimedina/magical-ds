@@ -11,33 +11,26 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
 
 const BaseStack = buildComponentWithDataType("Stack", "div")
 
-const StyledStack = styled(BaseStack,{
-    
-    // Base styles
-    display: "flex", // should this allow for inline-flex passed as a variable?
-    flexWrap: "nowrap",
-    $$stackFontSize: theme.fontSizes.fontSize3,
-    fontSize: "$$stackFontSize",
-    
+export const stackVariants = {
     variants: {
         grow: {
             true: { flexGrow: 1 } 
         },
         padding: {
             none: { padding: 0 },
-            tighter: { padding: "calc($$stackFontSize * 0.25)" },
-            tight: { padding: "calc($$stackFontSize * 0.5)" },
-            regular: { padding: "$$stackFontSize" },
-            loose: { padding: "calc($$stackFontSize * 1.5)" },
-            looser: { padding: "calc($$stackFontSize * 2)" },
+            tighter: { padding: "calc($$currentFontSize * 0.25)" },
+            tight: { padding: "calc($$currentFontSize * 0.5)" },
+            regular: { padding: "$$currentFontSize" },
+            loose: { padding: "calc($$currentFontSize * 1.5)" },
+            looser: { padding: "calc($$currentFontSize * 2)" },
         },
         gap: {
             none: { gap: 0 },
-            tighter: { gap: "calc($$stackFontSize * 0.25)" },
-            tight: { gap: "calc($$stackFontSize * 0.5)" },
-            regular: { gap: "$$stackFontSize" },
-            loose: { gap: "calc($$stackFontSize * 1.5)" },
-            looser: { gap: "calc($$stackFontSize * 2)" },
+            tighter: { gap: "calc($$currentFontSize * 0.25)" },
+            tight: { gap: "calc($$currentFontSize * 0.5)" },
+            regular: { gap: "$$currentFontSize" },
+            loose: { gap: "calc($$currentFontSize * 1.5)" },
+            looser: { gap: "calc($$currentFontSize * 2)" },
         },
         overflow: {
             hide: { overflow: "hidden" },
@@ -67,11 +60,11 @@ const StyledStack = styled(BaseStack,{
             fill80: { width: "80%"}, 
             fill90: { width: "90%"}, 
             height: { aspectRatio: "1 / 1" },
-            xs: { width: "calc($$stackFontSize * 14)" }, // 196px
-            sm: { width: "calc($$stackFontSize * 20)" }, // 280px
-            md: { width: "calc($$stackFontSize * 24)" }, // 336px
-            lg: { width: "calc($$stackFontSize * 32)" }, // 448px
-            xl: { width: "calc($$stackFontSize * 48)" }, // 672px
+            xs: { width: "calc($$currentFontSize * 14)" }, // 196px
+            sm: { width: "calc($$currentFontSize * 20)" }, // 280px
+            md: { width: "calc($$currentFontSize * 24)" }, // 336px
+            lg: { width: "calc($$currentFontSize * 32)" }, // 448px
+            xl: { width: "calc($$currentFontSize * 48)" }, // 672px
         },
         height: {
             screen: { height: "100vh" },
@@ -89,11 +82,11 @@ const StyledStack = styled(BaseStack,{
             fill90: { height: "90%"}, 
             width: { aspectRatio: "1 / 1" },
             // DO: should heights be the same as widths? Heights take up less vertical space...
-            xs: { height: "calc($$stackFontSize * 14)" }, // 196px
-            sm: { height: "calc($$stackFontSize * 20)" }, // 280px
-            md: { height: "calc($$stackFontSize * 24)" }, // 336px
-            lg: { height: "calc($$stackFontSize * 32)" }, // 448px
-            xl: { height: "calc($$stackFontSize * 48)" }, // 672px
+            xs: { height: "calc($$currentFontSize * 14)" }, // 196px
+            sm: { height: "calc($$currentFontSize * 20)" }, // 280px
+            md: { height: "calc($$currentFontSize * 24)" }, // 336px
+            lg: { height: "calc($$currentFontSize * 32)" }, // 448px
+            xl: { height: "calc($$currentFontSize * 48)" }, // 672px
             // DECIDE: should we add mixmax() options?
         },
         
@@ -109,6 +102,18 @@ const StyledStack = styled(BaseStack,{
             distribute: { justifyContent: "space-between" }
         },
     },
+}
+
+const StyledStack = styled(BaseStack,{
+    
+    // Base styles
+    display: "flex", // should this allow for inline-flex passed as a variable?
+    flexWrap: "nowrap",
+    $$currentFontSize: theme.fontSizes.fontSize3,
+    fontSize: "$$currentFontSize",
+    
+    ...stackVariants,
+    
     defaultVariants: {
         width: "auto",
         height: "auto",
@@ -123,6 +128,4 @@ const StyledStack = styled(BaseStack,{
 
 
 const Stack = StyledStack
-
-
 export default Stack
