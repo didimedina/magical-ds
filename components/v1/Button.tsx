@@ -1,44 +1,5 @@
-/* TODOS -------------------
-
-[] Create a seperate Text component and test wrapping behavior around Buttons
-   This should make uderlines of tertery thicker on bigger sizes by making the 
-   inline prop for button inherit those stylings and the Text comp have these instead
-   targeting data-magical-button-root
-
-   [] Figure out if passing an alt theme to control auto-responsive is better
-      than locking it in to text comp, this could also offer the ability for turning it off
-
-      [] Figure out the base set of tokens and if to use size for creating things like
-         button height this way this too can be auto responsive
-
-
-[] Add static type checking for button children. If you try to place Button.Content
-   outside of Button.Root then it should throw a warning.
-
-[] If you wrap a Text around a button and button doesnt have a color set can the 
-   color from Text pass through to Button? 
-
-[] Figure out a way for Button to be imported and used as <Button/> 
-   istead of <Button.Root/> in situations where you don't need children
-
-[] Figure out how to export the Types interface for each component so that you can
-   configure a button externally then spread the Props. 
-
-[] Figure out how to host a compiled version of the Comp on a CDN and URL
-   import it into Framer
-
-[] Figure out how to assign a change in padding rules when theres only a icon and nothing else
-   maybe a way to do this is by adding a HTML attr that if Button.Value is exist it sets to true
-   and the would override the default of no padding and then add only when theres a value? 
-
-[] Make button support read only mode which won't dim like disabled does but also wont be clickable
-   change cursor to not be pointer (maybe ever cross?)
-
-*/
-
-
 import { styled, theme } from '../../stitches.config';
-import { stackVariants } from './Stack';
+import { stackSharedStyles } from './Stack';
 
 // HEADLESS ---------------------------------------------------------------------------
 
@@ -66,17 +27,31 @@ const BaseLabel = buildComponentWithDataType("Label", "div");
 // STYLED ---------------------------------------------------------------------------
 
 // Here we add the styling to all the components
+// How can I get something like:
+// <Stack asChild ..props>
+//     <Button> <- in this case unless props from style are spread after button,
+//                 button will generate stayles that take precendence
+//                 also if they share common api's you might end up with a situation where some get removed...
+// </Stack>
+/* 
 
+Challenges 
+- spreading all of stack variants into button isn't ideal since 
+  we want the same API but different value options relative to 
+  the components context. for example size in buttons wouldn't be fill60, screen etc.
+  - Button doesn't use padding the same way, it prefers fixed hieght...
+
+- what if we removed 
+
+*/
 
 const StyledRoot = styled(BaseRoot, {
     // Static
     all: 'unset',
     cursor: "pointer",
     display: "flex",
-    alignItems: 'center',
     boxSizing: 'border-box',
     userSelect: 'none',
-    fontWeight: "bold",
     '&::before': {
         boxSizing: 'border-box',
     },
@@ -87,10 +62,8 @@ const StyledRoot = styled(BaseRoot, {
     // Dynamic
     fontSize: "$$currentFontSize",
     lineHeight: "$$currentFontSize",
-    gap: "calc($$currentFontSize * 0.125)",
     borderRadius: "calc($$currentFontSize * 0.25)",
     px: "calc($$currentFontSize * 0.5)",
-    height: "calc($$currentFontSize * 2)", 
 
     '&:disabled': {
         opacity: 0.6,
@@ -99,15 +72,15 @@ const StyledRoot = styled(BaseRoot, {
     
     '&:focus': {
         outline: "none",
-        // boxShadow: 'inset 0 0 0 1px $$currentColor8, 0 0 0 1px $$currentColor8',
-        boxShadow: '0 0 0 calc($$currentFontSize * 0.125) $$currentColor8',
+        boxShadow: '0 0 0 min(2px ,calc($$currentFontSize * 0.125)) $$currentColor8',
+        // boxShadow: 'inset 0 0 0 min(2px , calc($$currentFontSize * 0.125)) $$currentColor1, 0 0 0 min(2px ,calc($$currentFontSize * 0.125)) $$currentColor8',
     },
 
     '& [data-magical-button-content]': {
-      display: "flex",
-      alignItems: "center",
-      width: "auto", 
-      gap: "calc($$currentFontSize * 0.25)",
+    //   display: "flex",
+    //   alignItems: "center",
+    //   width: "auto", 
+    //   gap: "calc($$currentFontSize * 0.25)",
     },
 
 
@@ -120,17 +93,28 @@ const StyledRoot = styled(BaseRoot, {
         borderRadius: 2,
         fontWeight: "400",
     },
-
+    // 
     variants: {
-        // TODO: maybe add a variant for width offering 'fill' and 'auto' as options
-        layout: {
-            ['space-between']: {
-                justifyContent: "space-between"
-            },
-            center: {
-                justifyContent: "center"
-            },
+        gap: {...stackSharedStyles.variants.gap},
+        axis: {...stackSharedStyles.variants.axis},
+        positionAcross: {...stackSharedStyles.variants.positionAcross},
+        positionAlong: {...stackSharedStyles.variants.positionAlong},
+        padding: {...stackSharedStyles.variants.padding},
+        fontWeight: {
+            regular: { fontWeight: "400" },
+            bold: { fontWeight: "500" }
         },
+        height: {
+            auto: { height: "auto" },
+            fit: { height: "fit-content" },
+            base: { height: "calc($$currentFontSize * 2)" }
+        },
+        width: {
+            auto: { width: "auto" },
+            fit: { width: "fit-content" },
+            fill: { width: "100%"}, 
+        },
+
         color: {
             slate: {
                 $$currentColor1: theme.colors.slate1,
@@ -358,7 +342,7 @@ const StyledRoot = styled(BaseRoot, {
             },
 
         },
-        size: {
+        scale: {
             sm: {
                 $$currentFontSize: theme.fontSizes.fontSize2,
             },
@@ -410,7 +394,7 @@ const StyledRoot = styled(BaseRoot, {
             true: {
                 // maybe make this a compound variant so it only triggers for secondary?
                 backgroundColor: "transparent",
-                textDecoration: "none",
+                textDecoration: "none", // this is doing nothing!
             }
         },
         readOnly: {
@@ -483,15 +467,22 @@ const StyledRoot = styled(BaseRoot, {
 
     defaultVariants: {
         color: "slate",
-        size: "md",
+        scale: "md",
         affordance: 'primary',
-        layout: "center",
-        dim: false
+        dim: false,
+        axis: "horizontal",
+        positionAlong: "center",
+        positionAcross: "center",
+        height: "base",
+        width: "auto",
+        fontWeight: "bold",
+        gap: "tight",
     }
 })
 
 const StyledContent = styled(BaseContent, {
-    ...stackVariants
+    display: "flex",
+    ...stackSharedStyles
 })
 const StyledIcon = styled(BaseIcon, {
     // TODO: maybe change this to set default to 1.2 and make Boolean called shrink
@@ -513,7 +504,7 @@ const StyledIcon = styled(BaseIcon, {
         dim: {
             true: {
                 '& svg': {
-                    color: "$$currentColor8",
+                    color: "$$currentColor9",
                 }
             },
         },
@@ -523,13 +514,23 @@ const StyledIcon = styled(BaseIcon, {
     }
 })
 const StyledValue = styled(BaseValue, {
+
+
     variants: {
         shrink: {
             true: { fontSize: "0.8em" }
         },
         dim: {
-            true: { color: "$$currentColor8" }
-        }
+            true: { color: "$$currentColor9" }
+        },
+        multiLine: {
+            true: { lineHeight: "calc($$currentFontSize * 1.25)" }
+        },
+        ghost: {
+            true: {
+
+            }
+        },
     }
 })
 const StyledLabel = styled(BaseLabel, {

@@ -11,8 +11,30 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
 
 const BaseStack = buildComponentWithDataType("Stack", "div")
 
-export const stackVariants = {
+export const stackSharedStyles = {
     variants: {
+        utilBorder: {
+            red: {
+                boxShadow: '0 0 0 2px $colors$red9'
+            },
+            green: {
+                boxShadow: '0 0 0 2px $colors$green9'
+            },
+            blue: {
+                boxShadow: '0 0 0 2px $colors$blue9'
+            },
+        },
+        utilFill: {
+            red: {
+                backgroundColor: '$red4'
+            },
+            green: {
+                backgroundColor: '$green4'
+            },
+            blue: {
+                backgroundColor: '$blue4'
+            },
+        },
         grow: {
             true: { flexGrow: 1 } 
         },
@@ -112,7 +134,9 @@ const StyledStack = styled(BaseStack,{
     $$currentFontSize: theme.fontSizes.fontSize3,
     fontSize: "$$currentFontSize",
     
-    ...stackVariants,
+    variants: {
+        ...stackSharedStyles.variants,
+    },
     
     defaultVariants: {
         width: "auto",

@@ -57,6 +57,9 @@ export const { theme, styled, getCssText, css } = createStitches({
       // this likely won't work because it will inherit rem from the 
       // root which wouldn't be the desired behavior
     },
+    shadows: {
+      sm: "8px 0px 20px 0px $colors$slate6"
+    },
 
     space: {
       // Scale in pixels -- isn't good and leaves akward outcomes.
@@ -231,11 +234,26 @@ export const denselySized = createTheme('densely-sized', {
 })
 
 const preflight = globalCss({
+  '@import': "url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Space+Mono:wght@400;700&display=swap')",
+  // '@font-face': [
+  //   {
+  //     fontFamily: 'Poppins',
+  //     src: 'local("CustomFont1"), url("CustomFont1.woff2")',
+  //   },
+  //   {
+  //     fontFamily: 'CustomFont2',
+  //     src: 'local("CustomFont2"), url("CustomFont2.woff2")',
+  //   },
+  // ],
+
   ':root':{
     fontSize: "4px" // set the root rem
   },
   'body': {
-    fontSize: theme.fontSizes.fontSize3 // set the default fontSize so it doesn't always render 4px based on :root.
+    fontSize: theme.fontSizes.fontSize3, // set the default fontSize so it doesn't always render 4px based on :root.
+    fontFamily: theme.fonts.serif,
+    padding: 0,
+    margin: 0,
   },
   // reset global styles based on TWCSS Preflight https://tailwindcss.com/docs/preflight
   'blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre': {
@@ -257,7 +275,8 @@ const preflight = globalCss({
   '*, ::before, ::after': {
     borderWidth: "0",
     borderStyle: "solid",
-    borderColor: 'currentColor'
+    borderColor: 'currentColor',
+    boxSizing: "border-box"
   },
   '.google-map *': {
     borderStyle: "none"
