@@ -4,54 +4,35 @@ import { stackSharedStyles } from './Stack';
 // HEADLESS ---------------------------------------------------------------------------
 
 // Factory function that produces headless components with the right HTML data-* attribute
-type ComponentDataTypes = "Root" | "Content" | "Icon" | "Value" | "Label"
+type ComponentDataTypes = "Button"
 
 function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
     const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-button-${dataType.toLowerCase()}`]: "", ...props}} />;        
+    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
     Comp.displayName = `${dataType}`;
     return Comp;
 }
 
 
 // Here we build the headless version of every component 
-const BaseRoot = buildComponentWithDataType("Root", "button");
-const BaseContent = buildComponentWithDataType("Content", "div");
-const BaseValue = buildComponentWithDataType("Value", "p");
-const BaseIcon = buildComponentWithDataType("Icon", "div");
-const BaseLabel = buildComponentWithDataType("Label", "div"); 
-// Possibly move this to seperete Comp and retain styles targeting it using data-*
-// if placed within a button?
+const BaseButton = buildComponentWithDataType("Button", "button");
 
 
 // STYLED ---------------------------------------------------------------------------
 
-// Here we add the styling to all the components
-// How can I get something like:
-// <Stack asChild ..props>
-//     <Button> <- in this case unless props from style are spread after button,
-//                 button will generate stayles that take precendence
-//                 also if they share common api's you might end up with a situation where some get removed...
-// </Stack>
-/* 
-
-Challenges 
-- spreading all of stack variants into button isn't ideal since 
-  we want the same API but different value options relative to 
-  the components context. for example size in buttons wouldn't be fill60, screen etc.
-  - Button doesn't use padding the same way, it prefers fixed hieght...
-
-- what if we removed 
-
-*/
-
-const StyledRoot = styled(BaseRoot, {
+const StyledButton = styled(BaseButton, {
     // Static
     all: 'unset',
     cursor: "pointer",
     display: "flex",
     boxSizing: 'border-box',
     userSelect: 'none',
+    alignItems: "center",
+    justifyContent: "center",
+    height: "calc($$buttonFontSize * 2)",
+    width: "auto",
+
+
     '&::before': {
         boxSizing: 'border-box',
     },
@@ -60,61 +41,28 @@ const StyledRoot = styled(BaseRoot, {
     },
     
     // Dynamic
-    fontSize: "$$currentFontSize",
-    lineHeight: "$$currentFontSize",
-    borderRadius: "calc($$currentFontSize * 0.25)",
-    px: "calc($$currentFontSize * 0.5)",
-
-    '&:disabled': {
-        opacity: 0.6,
-        cursor: "not-allowed"
-    },
+    fontSize: "$$buttonFontSize",
+    lineHeight: "$$buttonFontSize",
+    borderRadius: "min(3px, calc($$buttonFontSize * 0.25))",
+    px: "calc($$buttonFontSize * 0.5)",
     
     '&:focus': {
         outline: "none",
-        boxShadow: '0 0 0 min(2px ,calc($$currentFontSize * 0.125)) $$currentColor8',
-        // boxShadow: 'inset 0 0 0 min(2px , calc($$currentFontSize * 0.125)) $$currentColor1, 0 0 0 min(2px ,calc($$currentFontSize * 0.125)) $$currentColor8',
+        boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$currentColor8',
     },
 
-    '& [data-magical-button-content]': {
-    //   display: "flex",
-    //   alignItems: "center",
-    //   width: "auto", 
-    //   gap: "calc($$currentFontSize * 0.25)",
-    },
+    // '& [controlledBy="button"]': { 
+    //     '&[data-magical-text]': { 
+    //         px: "calc($$buttonFontSize * 0.25)",
+    //         py: "calc($$buttonFontSize * 0.125)",
+    //         height: "auto",
+    //         display: "inline-flex",
+    //         borderRadius: "calc($$buttonFontSize * 0.25)",
+    //     },
+    // },
 
-
-    '& [data-magical-button-label]':{
-        fontSize: "calc($$currentFontSize * 0.75)", 
-        px: "calc($$currentFontSize * 0.25)", 
-        display: "flex",
-        alignItems: "center",
-        height: "$$currentFontSize",
-        borderRadius: 2,
-        fontWeight: "400",
-    },
     // 
     variants: {
-        gap: {...stackSharedStyles.variants.gap},
-        axis: {...stackSharedStyles.variants.axis},
-        positionAcross: {...stackSharedStyles.variants.positionAcross},
-        positionAlong: {...stackSharedStyles.variants.positionAlong},
-        padding: {...stackSharedStyles.variants.padding},
-        fontWeight: {
-            regular: { fontWeight: "400" },
-            bold: { fontWeight: "500" }
-        },
-        height: {
-            auto: { height: "auto" },
-            fit: { height: "fit-content" },
-            base: { height: "calc($$currentFontSize * 2)" }
-        },
-        width: {
-            auto: { width: "auto" },
-            fit: { width: "fit-content" },
-            fill: { width: "100%"}, 
-        },
-
         color: {
             slate: {
                 $$currentColor1: theme.colors.slate1,
@@ -342,18 +290,18 @@ const StyledRoot = styled(BaseRoot, {
             },
 
         },
-        scale: {
+        baseSize: {
             sm: {
-                $$currentFontSize: theme.fontSizes.fontSize2,
+                $$buttonFontSize: theme.fontSizes.fontSize2,
             },
             md: {
-                $$currentFontSize: theme.fontSizes.fontSize3,
+                $$buttonFontSize: theme.fontSizes.fontSize3,
             },
             lg: {
-                $$currentFontSize: theme.fontSizes.fontSize4,
+                $$buttonFontSize: theme.fontSizes.fontSize4,
             },
             xl: {
-                $$currentFontSize: theme.fontSizes.fontSize4,
+                $$buttonFontSize: theme.fontSizes.fontSize4,
             },
         },
         affordance: {
@@ -372,13 +320,13 @@ const StyledRoot = styled(BaseRoot, {
                 color: "$$currentColor9",
                 textDecoration: "underline",
                 textDecorationColor: "$$currentColor6",
-                textUnderlineOffset: "calc($$currentFontSize * 0.125)",
-                textDecorationThickness: "calc($$currentFontSize * 0.125)",
+                textUnderlineOffset: "calc($$buttonFontSize * 0.125)",
+                textDecorationThickness: "calc($$buttonFontSize * 0.125)",
             },
         },
-        inline: {
-            true: {
-                // unset all the styles we want the wrapping Text comp to control instead
+        controlledBy: {
+            text: {
+                $$buttonFontSize: "$$textFontSize", 
                 px: "unset",
                 py: "unset",
                 height: "unset", 
@@ -390,171 +338,19 @@ const StyledRoot = styled(BaseRoot, {
                 display: "unset", // see if this can be removed. currently it's causing issues without.
             },
         },
-        ghost: {
-            true: {
-                // maybe make this a compound variant so it only triggers for secondary?
-                backgroundColor: "transparent",
-                textDecoration: "none", // this is doing nothing!
-            }
-        },
-        readOnly: {
-            // TODO: check to see if using this along side disabled and dim makes much sense
-            true: {
-                cursor: "not-allowed",
-            }
-        },
-        iconOnly: {
-            true: {
-                width: "auto",
-                aspectRatio: "1 / 1",
-                px: 0,
-                py: 0 
-            }
-        },
-        dim: {
-            true: {
-                color: "$$currentColor9",
-                '&:hover':{
-                    color: "currentColor",
-                }
-            }
-        }
     },
 
-    compoundVariants: [
-        {
-            // slate 10 as a bg doesn't look "primary" so an exception is made
-            affordance: "primary",
-            color: "slate",
-            dim: false,
-            css: {
-                backgroundColor: '$$currentColor12',
-                color: '$$currentColor1',
-                '& [data-magical-button-label]': {
-                    backgroundColor: "$$currentColor11",
-                    color: "$$currentColor8",
-                }
-            }
-        },
-        {
-            // slate 10 on text looks disabled so an exception is made
-            affordance: "secondary",
-            color: "slate",
-            dim: false,
-            css: {
-                color: '$$currentColor12'
-            }
-        },
-        {
-            // slate 10 on text looks disabled so an exception is made
-            affordance: "tertiary",
-            color: "slate",
-            dim: false,
-            css: {
-                color: '$$currentColor12'
-            }
-        },
-        {
-            affordance: "tertiary",
-            inline: true,
-            css: {
-                px: "0px",
-                py: "0px",
-                height: "auto",
-            }
-        }
-    ],
+
 
     defaultVariants: {
-        color: "slate",
-        scale: "md",
-        affordance: 'primary',
-        dim: false,
-        axis: "horizontal",
-        positionAlong: "center",
-        positionAcross: "center",
-        height: "base",
-        width: "auto",
-        fontWeight: "bold",
-        gap: "tight",
+        color: "blue",
+        baseSize: "md", 
     }
 })
 
-const StyledContent = styled(BaseContent, {
-    display: "flex",
-    ...stackSharedStyles
-})
-const StyledIcon = styled(BaseIcon, {
-    // TODO: maybe change this to set default to 1.2 and make Boolean called shrink
-    // TODO: maybe change the values to use calc($$buttonRootFontSize)
-    '& svg': {
-        width: "1.2em",
-        height: "1.2em",
-    },
-    
-    variants: {
-        shrink: {
-            true: {
-                '& svg': {
-                    width: "0.8em",
-                    height: "0.8em",
-                }
-            },
-        },
-        dim: {
-            true: {
-                '& svg': {
-                    color: "$$currentColor9",
-                }
-            },
-        },
-    },
-    defaultVariants: {
-        // size: "default"
-    }
-})
-const StyledValue = styled(BaseValue, {
-
-
-    variants: {
-        shrink: {
-            true: { fontSize: "0.8em" }
-        },
-        dim: {
-            true: { color: "$$currentColor9" }
-        },
-        multiLine: {
-            true: { lineHeight: "calc($$currentFontSize * 1.25)" }
-        },
-        ghost: {
-            true: {
-
-            }
-        },
-    }
-})
-const StyledLabel = styled(BaseLabel, {
-    fontFamily: theme.fonts.mono,
-    variants: {
-        iconOnly: {
-            true: {
-                // DOESN'T WORK: seems like the size is being inherited somehow...
-                // px: 0,
-                // py: 0,
-                // height: 18,
-                // width: "auto",
-                // aspectRatio: "1 / 1"
-            },
-        },
-    },
-
-})
 
 // EXPORTS ---------------------------------------------------------------------------
 
-export const Root = StyledRoot
-export const Content = StyledContent
-export const Icon = StyledIcon
-export const Value = StyledValue
-export const Label = StyledLabel
+export const Button = StyledButton
+
  
