@@ -23,25 +23,10 @@ const BaseText = buildComponentWithDataType("Text", "p")
 
 const StyledText = styled(BaseText, {
 
-    // fontSize: "$$textFontSize",
     fontSize: "$$textFontSize",
     color: theme.colors.slate12,
-    lineHeight: "calc($$textFontSize * 1.25)",
+    lineHeight: "calc($$textFontSize * 1.125)",
     display: "inline",
-
-    // Set children to adopt new variables
-
-    '& [data-magical-button]': { 
-        px: "calc($$textFontSize * 0.25)",
-        py: "calc($$textFontSize * 0.125)",
-        // height: "calc($$textFontSize * 2.5)",
-        display: "inline-flex",
-        // setting to inline-flex for some reason requires an
-        // explicit height to be set
-        borderRadius: "calc($$textFontSize * 0.25)",
-    },
-
-
 
     variants: {
         baseSize: {
@@ -73,11 +58,33 @@ const StyledText = styled(BaseText, {
         controlledBy: {
             button: {
                 $$textFontSize: "$$buttonFontSize",
-                fontSize: "unset",
-                color: "unset",
+                color: "$$buttonColor", // <- what if this is on black bg do you need to do all the
+                // compound variants here as well to handle the exceptions?
+            }
+        },
+
+        shrink: {
+            true: {
+                fontSize: "calc($$textFontSize * 0.8)",
+            }
+        },
+        dim: {
+            true: {
+                // $$textColor: "calc($$textFontSize * 0.8)",
+            }
+        },
+    },
+    compoundVariants: [
+        {
+            dim: true,
+            controlledBy: "button",
+            css: {
+                color: "$$buttonColorDimmed"
             }
         }
-    },
+    ],
+
+
     defaultVariants: {
         baseSize: "md"
     }

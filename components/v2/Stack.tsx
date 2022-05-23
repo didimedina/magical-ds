@@ -11,7 +11,18 @@ function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: st
 
 const BaseStack = buildComponentWithDataType("Stack", "div")
 
-export const stackSharedStyles = {
+export const stackSharedStyles = {}
+
+    
+
+const StyledStack = styled(BaseStack,{
+    
+    // Base styles
+    display: "flex", // should this allow for inline-flex passed as a variable?
+    flexWrap: "nowrap",
+    $$currentFontSize: theme.fontSizes.fontSize3,
+    fontSize: "$$currentFontSize",
+    
     variants: {
         utilBorder: {
             red: {
@@ -38,6 +49,10 @@ export const stackSharedStyles = {
         grow: {
             true: { flexGrow: 1 } 
         },
+        shrink: {
+            true: { flexShrink: 1 } 
+        },
+
         padding: {
             none: { padding: 0 },
             tighter: { padding: "calc($$currentFontSize * 0.25)" },
@@ -103,13 +118,12 @@ export const stackSharedStyles = {
             fill80: { height: "80%"}, 
             fill90: { height: "90%"}, 
             width: { aspectRatio: "1 / 1" },
-            // DO: should heights be the same as widths? Heights take up less vertical space...
+            // update hieghts to be different than widths so its more practical.
             xs: { height: "calc($$currentFontSize * 14)" }, // 196px
             sm: { height: "calc($$currentFontSize * 20)" }, // 280px
             md: { height: "calc($$currentFontSize * 24)" }, // 336px
             lg: { height: "calc($$currentFontSize * 32)" }, // 448px
             xl: { height: "calc($$currentFontSize * 48)" }, // 672px
-            // DECIDE: should we add mixmax() options?
         },
         
         positionAcross: {
@@ -123,19 +137,6 @@ export const stackSharedStyles = {
             end: { justifyContent: "flex-end" },
             distribute: { justifyContent: "space-between" }
         },
-    },
-}
-
-const StyledStack = styled(BaseStack,{
-    
-    // Base styles
-    display: "flex", // should this allow for inline-flex passed as a variable?
-    flexWrap: "nowrap",
-    $$currentFontSize: theme.fontSizes.fontSize3,
-    fontSize: "$$currentFontSize",
-    
-    variants: {
-        ...stackSharedStyles.variants,
     },
     
     defaultVariants: {

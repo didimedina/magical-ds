@@ -16,11 +16,12 @@ const Home: NextPage = () => {
         </Head>
 
         <Stack height={"screen"} positionAcross={"center"} positionAlong={"center"}>
-            <Text baseSize={"2xl"}>Wow this is the coolest&nbsp;
-                <Button controlledBy={"text"} affordance={"secondary"} color={"grass"}>
-                    <Text controlledBy={"button"} baseSize={"3xl"}>Design System</Text>
-                </Button> I have ever seen!
-            </Text>
+            <Button css={{ width: "200px"}} height={"fit"} affordance={"primary"} color={"tomato"}>
+                <Stack gap={"tighter"} padding={"tighter"} width={"fill"} height={"fill"} positionAlong={"center"} positionAcross={"center"}>
+                    <Text controlledBy={"button"}>Subscribe Monthly</Text>
+                    <Text dim shrink controlledBy={"button"}>$9.95 per month</Text>
+                </Stack>
+            </Button>
         </Stack>
           
       </div>

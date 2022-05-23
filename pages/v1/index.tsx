@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Box from '../../components/v1/Box'
 import * as Button from '../../components/v1/Button'
-import { css, theme, darkTheme, looselySized, denselySized } from '../stitches.config'
+import { css, theme, darkTheme, looselySized, denselySized } from '../../stitches.config'
 import { CloudSlash, Command, Check, Lightning, MapPinLine, DotsThreeOutlineVertical, CaretDown } from 'phosphor-react'
 import Text from '../../components/v1/Text'
 
