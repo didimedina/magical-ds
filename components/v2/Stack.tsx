@@ -4,7 +4,7 @@ type ComponentDataTypes = "Stack"
 
 function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
     const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-stack-${dataType.toLowerCase()}`]: "", ...props}} />;        
+    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
     Comp.displayName = `${dataType}`;
     return Comp;
 }

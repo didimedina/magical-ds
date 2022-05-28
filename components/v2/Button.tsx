@@ -39,6 +39,8 @@ const StyledButton = styled(BaseButton, {
         boxSizing: 'border-box',
     },
     
+    // TODO: if theres a stack directly as a child the button parent should remove padding and set child to full width by default
+
     // Dynamic
     fontSize: "$$buttonFontSize",
     lineHeight: "$$buttonFontSize",
@@ -53,7 +55,29 @@ const StyledButton = styled(BaseButton, {
         boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors8',
     },
 
+    /* DECIDE:
+        can we use zagjs to simplfy this flow where if stack is a child
+        of button then stack will have an internal state that gets changed
+        automatically to something like data-stack-button="true" and that way within
+        stack you conditionally check :not(data-stack-button="true") and remove local 
+        styling that way. This could be a powerful concept, handles a lot of possibilities
+        without need to set button to asStack and/or child stack to controlledBy={"button"}
+        to achieve the correct toggling of classes...
+    */
+
     variants: {
+        asStack: {
+            true: {
+                px: "unset",
+                py: "unset",
+                '& > [data-magical-stack]': {
+                    px: "calc($$buttonFontSize * 0.5)",
+                    py: "calc($$buttonFontSize * 0.25)",
+                    height: "100%",
+                    width: "100%",
+                },
+            }
+        },
         height: {
             default: { height: "calc($$buttonFontSize * 2)" },
             fit: { height: "fit-content" }
@@ -198,7 +222,7 @@ const StyledButton = styled(BaseButton, {
     ],
 
     defaultVariants: {
-        color: "blue",
+        color: "slate",
         baseSize: "md",
         affordance: "primary",
         height: "default"
