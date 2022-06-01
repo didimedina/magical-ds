@@ -1,19 +1,8 @@
 import { styled, theme } from '../../stitches.config';
+import { buildComponentWithDataType } from './utils';
 
 // HEADLESS ---------------------------------------------------------------------------
 
-// Factory function that produces headless components with the right HTML data-* attribute
-type ComponentDataTypes = "Button"
-
-function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
-    const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
-    Comp.displayName = `${dataType}`;
-    return Comp;
-}
-
-
-// Here we build the headless version of every component 
 const BaseButton = buildComponentWithDataType("Button", "button");
 
 
@@ -131,7 +120,8 @@ const StyledButton = styled(BaseButton, {
             },
 
         },
-        baseSize: {
+        fontSize: {
+            // can you change size without changing font size ie looser padding same font?
             sm: {
                 $$buttonFontSize: theme.fontSizes.fontSize2,
             },
