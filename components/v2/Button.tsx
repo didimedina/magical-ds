@@ -1,24 +1,16 @@
+import { motion } from 'framer-motion';
 import { styled, theme } from '../../stitches.config';
-import { buildComponentWithDataType } from './utils';
 
-// HEADLESS ---------------------------------------------------------------------------
+/* -------------------------------------------------------------------------------------------------
+ * Button
+ * -----------------------------------------------------------------------------------------------*/
 
-const BaseButton = buildComponentWithDataType("Button", "button");
-
-
-// STYLED ---------------------------------------------------------------------------
-
-const StyledButton = styled(BaseButton, {
-    // Static
+const StyledButton = styled("button", {
+    // Reset styles...
     all: 'unset',
     cursor: "pointer",
-    display: "flex",
     boxSizing: 'border-box',
     userSelect: 'none',
-    alignItems: "center",
-    justifyContent: "center",
-    width: "auto",
-
 
     '&::before': {
         boxSizing: 'border-box',
@@ -28,24 +20,35 @@ const StyledButton = styled(BaseButton, {
     },
     
 
-    // Dynamic
+    //Constant variables...
+    $$buttonFontSize: theme.fontSizes.fontSize3,
+
+    // Base styles...
     fontSize: "$$buttonFontSize",
     lineHeight: "$$buttonFontSize",
     borderRadius: "calc($$buttonFontSize * 0.25)",
-    px: "calc($$buttonFontSize * 0.5)",
-    py: "calc($$buttonFontSize * 0.25)",
+    px: "calc($$buttonFontSize * $$buttonDensity * 1.25)",
+    py: "calc($$buttonFontSize * $$buttonDensity * 0.5)",
     color: "$$buttonColor",
     backgroundColor: "$$buttonBackgroundColor",
-    
-    '&:focus': {
-        outline: "none",
-        boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors8',
-    },
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    whiteSpace: "nowrap",
+
 
     variants: {
         height: {
-            default: { height: "calc($$buttonFontSize * 2)" },
+            fixed: { height: "calc($$buttonFontSize * $$buttonDensity * 2.5)" },
             fit: { height: "fit-content" }
+        },
+        width: {
+            fill: { width: "100%" },
+            fit: { width: "fit-content" },
+            height: {
+                width: "fit-content",
+                aspectRatio: "1 / 1",
+            }
         },
         color: {
             slate: {
@@ -62,20 +65,6 @@ const StyledButton = styled(BaseButton, {
                 $$buttonColors11: theme.colors.slate11,
                 $$buttonColors12: theme.colors.slate12,
             },
-            tomato: {
-                $$buttonColors1: theme.colors.tomato1,
-                $$buttonColors2: theme.colors.tomato2,
-                $$buttonColors3: theme.colors.tomato3,
-                $$buttonColors4: theme.colors.tomato4,
-                $$buttonColors5: theme.colors.tomato5,
-                $$buttonColors6: theme.colors.tomato6,
-                $$buttonColors7: theme.colors.tomato7,
-                $$buttonColors8: theme.colors.tomato8,
-                $$buttonColors9: theme.colors.tomato9,
-                $$buttonColors10: theme.colors.tomato10,
-                $$buttonColors11: theme.colors.tomato11,
-                $$buttonColors12: theme.colors.tomato12,
-            },
             red: {
                 $$buttonColors1: theme.colors.red1,
                 $$buttonColors2: theme.colors.red2,
@@ -90,75 +79,74 @@ const StyledButton = styled(BaseButton, {
                 $$buttonColors11: theme.colors.red11,
                 $$buttonColors12: theme.colors.red12,
             },
-            crimson: {
-                $$buttonColors1: theme.colors.crimson1,
-                $$buttonColors2: theme.colors.crimson2,
-                $$buttonColors3: theme.colors.crimson3,
-                $$buttonColors4: theme.colors.crimson4,
-                $$buttonColors5: theme.colors.crimson5,
-                $$buttonColors6: theme.colors.crimson6,
-                $$buttonColors7: theme.colors.crimson7,
-                $$buttonColors8: theme.colors.crimson8,
-                $$buttonColors9: theme.colors.crimson9,
-                $$buttonColors10: theme.colors.crimson10,
-                $$buttonColors11: theme.colors.crimson11,
-                $$buttonColors12: theme.colors.crimson12,
+            blue: {
+                $$buttonColors1: theme.colors.blue1,
+                $$buttonColors2: theme.colors.blue2,
+                $$buttonColors3: theme.colors.blue3,
+                $$buttonColors4: theme.colors.blue4,
+                $$buttonColors5: theme.colors.blue5,
+                $$buttonColors6: theme.colors.blue6,
+                $$buttonColors7: theme.colors.blue7,
+                $$buttonColors8: theme.colors.blue8,
+                $$buttonColors9: theme.colors.blue9,
+                $$buttonColors10: theme.colors.blue10,
+                $$buttonColors11: theme.colors.blue11,
+                $$buttonColors12: theme.colors.blue12,
             },
-            pink: {
-                $$buttonColors1: theme.colors.pink1,
-                $$buttonColors2: theme.colors.pink2,
-                $$buttonColors3: theme.colors.pink3,
-                $$buttonColors4: theme.colors.pink4,
-                $$buttonColors5: theme.colors.pink5,
-                $$buttonColors6: theme.colors.pink6,
-                $$buttonColors7: theme.colors.pink7,
-                $$buttonColors8: theme.colors.pink8,
-                $$buttonColors9: theme.colors.pink9,
-                $$buttonColors10: theme.colors.pink10,
-                $$buttonColors11: theme.colors.pink11,
-                $$buttonColors12: theme.colors.pink12,
-            },
-
         },
-        fontSize: {
-            // can you change size without changing font size ie looser padding same font?
-            sm: {
-                $$buttonFontSize: theme.fontSizes.fontSize2,
-            },
-            md: {
-                $$buttonFontSize: theme.fontSizes.fontSize3,
-            },
-            lg: {
-                $$buttonFontSize: theme.fontSizes.fontSize4,
-            },
-            xl: {
-                $$buttonFontSize: theme.fontSizes.fontSize4,
-            },
+        density: {
+            normal: { $$buttonDensity: "1" },
+            loose: { $$buttonDensity: "1.25" },
         },
         affordance: {
             primary: { 
                 $$buttonBackgroundColor: "$$buttonColors10",
                 $$buttonColor: "$$buttonColors1",
                 $$buttonColorDimmed: "$$buttonColors6",
+                '&:hover': { $$buttonBackgroundColor: "$$buttonColors9" },
+                '&:active': { $$buttonBackgroundColor: "$$buttonColors11" },
+                '&:focus': {
+                    outline: "none",
+                    boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors6',
+                },
             },
             secondary: { 
-                $$buttonBackgroundColor: "$$buttonColors4",
+                $$buttonBackgroundColor: "$$buttonColors5",
                 $$buttonColor: "$$buttonColors10",
-                $$buttonColorDimmed: "$$buttonColors8"
+                $$buttonColorDimmed: "$$buttonColors8",
+                '&:hover': { $$buttonBackgroundColor: "$$buttonColors4" },
+                '&:active': { $$buttonBackgroundColor: "$$buttonColors6" },
+                '&:focus': {
+                    outline: "none",
+                    boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors7',
+                },
             },
             tertiary: {
                 $$buttonColor: "$$buttonColors9",
                 $$buttonBackgroundColor: "transparent",
-                $$buttonColorDimmed: "$$buttonColors7",
+                $$buttonColorDimmed: "$$buttonColors8",
                 textDecoration: "underline",
-                textDecorationColor: "$$buttonColors6",
+                textDecorationColor: "$$buttonColors5",
                 textUnderlineOffset: "calc($$buttonFontSize * 0.125)",
                 textDecorationThickness: "calc($$buttonFontSize * 0.125)",
+                '&:hover': { textDecorationColor: "$$buttonColors7", },
+                '&:active': { $$buttonColor: "$$buttonColors11" },
+                '&:focus': {
+                    outline: "none",
+                    boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors6',
+                },
             },
+        },
+        ghost: {
+            true: { 
+                /* this is only a flag, since ghost only applies to affordance secondary,
+                the styles are defined in the compoundVariants section */ 
+            }
         },
         controlledBy: {
             text: {
-                $$buttonFontSize: "$$textFontSize", 
+                $$buttonFontSize: "$$textFontSize",
+                userSelect: 'text', 
                 height: "auto",
                 display: "inline-flex",
                 px: "calc($$buttonFontSize * 0.25)",
@@ -175,6 +163,12 @@ const StyledButton = styled(BaseButton, {
             css: {
                 $$buttonBackgroundColor: "$$buttonColors12",
                 $$buttonColorDimmed: "$$buttonColors9",
+                '&:hover': { $$buttonBackgroundColor: "$$buttonColors11" },
+                '&:active': { $$buttonBackgroundColor: "$$buttonColors11" },
+                '&:focus': {
+                    outline: "none",
+                    boxShadow: '0 0 0 min(2px, calc($$buttonFontSize * 0.125)) $$buttonColors6',
+                },
             }
         },
         {
@@ -185,19 +179,26 @@ const StyledButton = styled(BaseButton, {
                 $$buttonColorDimmed: "$$buttonColors9",
             }
         },
+        {
+            affordance: "secondary",
+            ghost: "true",
+            css: { $$buttonBackgroundColor: "transparent" }
+        }
     ],
 
     defaultVariants: {
         color: "slate",
-        baseSize: "md",
         affordance: "primary",
-        height: "default"
+        height: "fixed",
+        width: "fit",
+        density: "normal" 
     }
 })
 
 
 // EXPORTS ---------------------------------------------------------------------------
 
-export const Button = StyledButton
+const Button = StyledButton
+export default Button
 
  

@@ -1,29 +1,26 @@
 import { styled, theme } from '../../stitches.config';
 
-type ComponentDataTypes = "Stack"
+/* -------------------------------------------------------------------------------------------------
+ * Stack
+ * -----------------------------------------------------------------------------------------------*/
 
-function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
-    const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
-    Comp.displayName = `${dataType}`;
-    return Comp;
-}
-
-const BaseStack = buildComponentWithDataType("Stack", "div")
-
-export const stackSharedStyles = {}
-
+const StyledStack = styled("div", {
     
+    // Constant variables...
+    $$stackFontSize: theme.fontSizes.fontSize3,
 
-const StyledStack = styled(BaseStack,{
-    
-    // Base styles
-    display: "flex", // should this allow for inline-flex passed as a variable?
+    // Base styles...
+    display: "flex",
     flexWrap: "nowrap",
-    $$currentFontSize: theme.fontSizes.fontSize3,
-    fontSize: "$$currentFontSize",
+    fontSize: "$$stackFontSize",
     
     variants: {
+        density: {
+            normal: { $$stackDensity: "1" },
+            loose: { $$stackDensity: "1.25" },
+            looser: { $$stackDensity: "1.5" },
+            loosest: { $$stackDensity: "2" },
+        },
         utilBorder: {
             red: {
                 boxShadow: '0 0 0 2px $colors$red9'
@@ -46,28 +43,32 @@ const StyledStack = styled(BaseStack,{
                 backgroundColor: '$blue4'
             },
         },
-        grow: {
+        flexGrow: {
             true: { flexGrow: 1 } 
         },
-        shrink: {
+        flexShrink: {
             true: { flexShrink: 1 } 
         },
-
-        padding: {
-            none: { padding: 0 },
-            tighter: { padding: "calc($$currentFontSize * 0.25)" },
-            tight: { padding: "calc($$currentFontSize * 0.5)" },
-            regular: { padding: "$$currentFontSize" },
-            loose: { padding: "calc($$currentFontSize * 1.5)" },
-            looser: { padding: "calc($$currentFontSize * 2)" },
+        px: {
+            none: { px: 0 },
+            normal: { px: "calc($$stackFontSize * $$stackDensity * 0.25)" },
+            loose: { px: "calc($$stackFontSize * $$stackDensity * 0.5)" },
+            looser: { px: "calc($$stackFontSize * $$stackDensity * 0.75)" },
+            loosest: { px: "calc($$stackFontSize * $$stackDensity * 1)" },
+        },
+        py: {
+            none: { py: 0 },
+            normal: { py: "calc($$stackFontSize * $$stackDensity * 0.25)" },
+            loose: { py: "calc($$stackFontSize * $$stackDensity * 0.5)" },
+            looser: { py: "calc($$stackFontSize * $$stackDensity * 0.75)" },
+            loosest: { py: "calc($$stackFontSize * $$stackDensity * 1)" },
         },
         gap: {
             none: { gap: 0 },
-            tighter: { gap: "calc($$currentFontSize * 0.25)" },
-            tight: { gap: "calc($$currentFontSize * 0.5)" },
-            regular: { gap: "$$currentFontSize" },
-            loose: { gap: "calc($$currentFontSize * 1.5)" },
-            looser: { gap: "calc($$currentFontSize * 2)" },
+            normal: { gap: "calc($$stackFontSize * $$stackDensity * 0.125)" },
+            loose: { gap: "calc($$stackFontSize * $$stackDensity * 0.25)" },
+            looser: { gap: "calc($$stackFontSize * $$stackDensity * 0.5)" },
+            loosest: { gap: "calc($$stackFontSize * $$stackDensity * 1)" },
         },
         overflow: {
             hide: { overflow: "hidden" },
@@ -97,11 +98,16 @@ const StyledStack = styled(BaseStack,{
             fill80: { width: "80%"}, 
             fill90: { width: "90%"}, 
             height: { aspectRatio: "1 / 1" },
-            xs: { width: "calc($$currentFontSize * 14)" }, // 196px
-            sm: { width: "calc($$currentFontSize * 20)" }, // 280px
-            md: { width: "calc($$currentFontSize * 24)" }, // 336px
-            lg: { width: "calc($$currentFontSize * 32)" }, // 448px
-            xl: { width: "calc($$currentFontSize * 48)" }, // 672px
+            fixed1: { width: "calc($$stackFontSize * 2)" },
+            fixed2: { width: "calc($$stackFontSize * 3)" },
+            fixed3: { width: "calc($$stackFontSize * 5)" },
+            fixed4: { width: "calc($$stackFontSize * 8)" },
+            fixed5: { width: "calc($$stackFontSize * 12)" },
+            fixed6: { width: "calc($$stackFontSize * 16)" },
+            fixed7: { width: "calc($$stackFontSize * 20)" },
+            fixed8: { width: "calc($$stackFontSize * 24)" },
+            fixed9: { width: "calc($$stackFontSize * 32)" },
+            fixed10: { width: "calc($$stackFontSize * 48)" }, 
         },
         height: {
             screen: { height: "100vh" },
@@ -118,12 +124,16 @@ const StyledStack = styled(BaseStack,{
             fill80: { height: "80%"}, 
             fill90: { height: "90%"}, 
             width: { aspectRatio: "1 / 1" },
-            // update hieghts to be different than widths so its more practical.
-            xs: { height: "calc($$currentFontSize * 14)" }, // 196px
-            sm: { height: "calc($$currentFontSize * 20)" }, // 280px
-            md: { height: "calc($$currentFontSize * 24)" }, // 336px
-            lg: { height: "calc($$currentFontSize * 32)" }, // 448px
-            xl: { height: "calc($$currentFontSize * 48)" }, // 672px
+            fixed1: { height: "calc($$stackFontSize * 2)" },
+            fixed2: { height: "calc($$stackFontSize * 3)" },
+            fixed3: { height: "calc($$stackFontSize * 5)" },
+            fixed4: { height: "calc($$stackFontSize * 8)" },
+            fixed5: { height: "calc($$stackFontSize * 12)" },
+            fixed6: { height: "calc($$stackFontSize * 16)" },
+            fixed7: { height: "calc($$stackFontSize * 20)" },
+            fixed8: { height: "calc($$stackFontSize * 24)" },
+            fixed9: { height: "calc($$stackFontSize * 32)" },
+            fixed10: { height: "calc($$stackFontSize * 48)" }, 
         },
         
         positionAcross: {
@@ -137,9 +147,16 @@ const StyledStack = styled(BaseStack,{
             end: { justifyContent: "flex-end" },
             distribute: { justifyContent: "space-between" }
         },
+        controlledBy: {
+            button: {
+                $$stackDensity: "$$buttonDensity",
+                $$stackFontSize: "$$buttonFontSize"
+            }
+        }
     },
     
     defaultVariants: {
+        density: "normal",
         width: "auto",
         height: "auto",
         axis: "vertical",

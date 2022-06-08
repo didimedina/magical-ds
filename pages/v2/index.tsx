@@ -1,11 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Box from '../../components/v1/Box'
 import Stack from '../../components/v2/Stack'
-import { Button } from '../../components/v2/Button'
+import Button from '../../components/v2/Button'
 import Text from '../../components/v2/Text'
 import Icon from '../../components/v2/Icon'
-import { AirplaneTakeoff, HouseSimple } from 'phosphor-react'
+import { AirplaneTakeoff, HouseSimple, IconContext } from 'phosphor-react'
 
 const Home: NextPage = () => {
 
@@ -17,17 +16,24 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <Stack height={"screen"} gap={"loose"} axis={"vertical"} positionAcross={"center"} positionAlong={"center"}>
+        <Stack height={"screen"} density={"loosest"} gap={"loosest"} axis={"vertical"} positionAcross={"center"} positionAlong={"center"}>
             {/* Using Stack to make components more flexible */}
-            <Text baseSize={"4xl"}> Hey man look at this:
-             <Button controlledBy={"text"}  color={"pink"} affordance={"secondary"}>Click Me!</Button>
+            <Text fontSize={"2xl"}> Hey man look at this:
+             <Button controlledBy={"text"} color={"blue"} affordance={"secondary"}>Click Me!</Button>
 
             </Text>
-            <Button baseSize={"lg"} color={"red"} affordance={"tertiary"}>Hello group</Button>
-            <Button>Click Me!</Button>
-
-            <Button baseSize={"lg"} asStack css={{ width: "200px"}} height={"fit"} affordance={"secondary"} color={"pink"}>
-                <Stack gap={"tighter"} padding={"loose"} width={"fill"} height={"fill"} positionAlong={"center"} positionAcross={"center"}>
+            <Button color={"red"} affordance={"tertiary"}>Hello group</Button>
+            <Button affordance={"secondary"} height={"fixed"} width={"height"} color={"blue"}>
+              <Icon dim controlledBy={"button"}><AirplaneTakeoff/></Icon>
+            </Button>
+            <Button affordance={"secondary"} color={"blue"}>
+              <Stack gap={"loose"} axis={"horizontal"} positionAcross={"center"}>
+                <Icon controlledBy={"button"}><AirplaneTakeoff/></Icon>
+                <Text controlledBy={"button"}>Book Flight</Text>
+              </Stack>
+            </Button>
+            <Button density={"loose"} height={"fit"} affordance={"primary"} color={"red"}>
+                <Stack controlledBy={"button"} gap={"normal"} width={"fill"} height={"fill"} positionAlong={"center"} positionAcross={"center"}>
                     <Text controlledBy={"button"}>Subscribe Monthly</Text>
                     <Text dim shrink controlledBy={"button"}>$9.95 per month</Text>
                 </Stack>

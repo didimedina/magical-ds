@@ -1,35 +1,23 @@
+import { styled, theme } from '../../stitches.config';
+
+/* -------------------------------------------------------------------------------------------------
+* Text
+* -----------------------------------------------------------------------------------------------*/
+
 /* TODOs
     [] Support elippses and text not wrapping. useful for titles and btn text
 */
 
-import { styled, theme } from '../../stitches.config';
+const StyledText = styled("p", {
 
-type ComponentDataTypes = "Text"
-
-function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
-    const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
-    Comp.displayName = `${dataType}`;
-    return Comp;
-}
-
-const BaseText = buildComponentWithDataType("Text", "p")
-
-
-/* -------------------------------------------------------------------------------------------------
- * Text
- * -----------------------------------------------------------------------------------------------*/
-
-
-const StyledText = styled(BaseText, {
-
+    // Base styles...
     fontSize: "$$textFontSize",
     color: theme.colors.slate12,
     lineHeight: "calc($$textFontSize * 1.125)",
     display: "inline",
 
     variants: {
-        baseSize: {
+        fontSize: {
             xs: {
                 $$textFontSize: theme.fontSizes.fontSize1
             },
@@ -58,8 +46,7 @@ const StyledText = styled(BaseText, {
         controlledBy: {
             button: {
                 $$textFontSize: "$$buttonFontSize",
-                color: "$$buttonColor", // <- what if this is on black bg do you need to do all the
-                // compound variants here as well to handle the exceptions?
+                color: "$$buttonColor",
             }
         },
 
@@ -86,7 +73,7 @@ const StyledText = styled(BaseText, {
 
 
     defaultVariants: {
-        baseSize: "md"
+        fontSize: "md"
     }
 
 })

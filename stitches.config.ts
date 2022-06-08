@@ -44,19 +44,16 @@ export const { theme, styled, getCssText, css } = createStitches({
       mono: "'Space Mono', monospace"
     },
     fontSizes: {
-      fontSize1: "2.5rem", // 10
-      fontSize2: "3rem", // 12px
-      fontSize3: "3.5rem", // 14px
-      fontSize4: "4rem", // 16px
-      fontSize5: "5rem", // 20px
-      fontSize6: "7rem", // 28px
-      fontSize7: "10rem", // 40px
-      fontSize8: "14rem", // 56px
-      // TODO: maybe containers can have width set with ch,
-      // to insure it holds a specific amount of char?
-      // this likely won't work because it will inherit rem from the 
-      // root which wouldn't be the desired behavior
+      fontSize1: "12px", // caption
+      fontSize2: "14px", // body small
+      fontSize3: "16px", // body
+      fontSize4: "20px", // title
+      fontSize5: "24px", // h4
+      fontSize6: "32px", // h3
+      fontSize7: "48px", // h2
+      fontSize8: "64px", // h1
     },
+
     shadows: {
       sm: "8px 0px 20px 0px $colors$slate6"
     },

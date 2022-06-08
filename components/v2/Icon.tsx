@@ -1,29 +1,15 @@
-/* TODOs
-    [] Support elippses and text not wrapping. useful for titles and btn text
-*/
-
 import { styled, theme } from '../../stitches.config';
-
-type ComponentDataTypes = "Icon"
-
-function buildComponentWithDataType(dataType: ComponentDataTypes, elementTag: string){ 
-    const Tag = elementTag
-    const Comp = (props: any) => <Tag {...{[`data-magical-${dataType.toLowerCase()}`]: "", ...props}} />;        
-    Comp.displayName = `${dataType}`;
-    return Comp;
-}
-
-const BaseIcon = buildComponentWithDataType("Icon", "p")
-
 
 /* -------------------------------------------------------------------------------------------------
  * Icon
  * -----------------------------------------------------------------------------------------------*/
 
+const StyledIcon = styled("div", {
 
-const StyledIcon = styled(BaseIcon, {
-
+    // Constant variables...
     $$iconColor: theme.colors.slate12,
+
+    // Base styles...
     fontSize: "$$iconFontSize",
     color: "$$iconColor",
     display: "inline",
@@ -35,8 +21,10 @@ const StyledIcon = styled(BaseIcon, {
         height: "calc($$iconFontSize * 1.25)",
     },
 
+    // Configurable styles through props...
     variants: {
-        baseSize: {
+        align: {/* Add text align options here and set default to left */},
+        fontSize: {
             xs: {
                 $$iconFontSize: theme.fontSizes.fontSize1
             },
@@ -86,19 +74,9 @@ const StyledIcon = styled(BaseIcon, {
         },
     },
 
-    compoundVariants: [
-        {
-            dim: true,
-            controlledBy: "button",
-            css: {
-                color: "$$buttonColorDimmed"
-            }
-        }
-    ],
-
 
     defaultVariants: {
-        baseSize: "md"
+        fontSize: "md"
     }
 
 })
